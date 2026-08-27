@@ -1,0 +1,602 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Get Started — MindMed Tutors</title>
+<meta name="description" content="Tell us where you are and what you're working towards. A few quick questions, then we'll be in touch to talk through the best option for you.">
+<meta property="og:title" content="Start Your Journey — MindMed Tutors">
+<meta property="og:description" content="Tell us where you are and what you're working towards — we'll help you work out the next step.">
+<meta property="og:type" content="website">
+<meta name="robots" content="noindex">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%2316213E'/%3E%3Cpath d='M50 22c-14 0-24 10-24 24 0 12 8 21 18 23v3h12v-3c10-2 18-11 18-23 0-14-10-24-24-24z' fill='none' stroke='%23A78FC0' stroke-width='4'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
+<script src="https://cdn.tailwindcss.com"></script>
+<script>
+  tailwind.config = {
+    theme: {
+      extend: {
+        colors: {
+          ink: '#16213E',
+          blue: { DEFAULT: '#5B7EBD', dark: '#3E5D97', light: '#8CA6D6' },
+          lav: { DEFAULT: '#A78FC0', dark: '#8B70A8', light: '#C4B3D8' },
+          mist: '#F3F5FA',
+          slate: '#4B5468',
+          line: '#E3E6F0',
+        },
+        fontFamily: {
+          display: ['Manrope', 'sans-serif'],
+          body: ['Inter', 'sans-serif'],
+          mono: ['"IBM Plex Mono"', 'monospace'],
+        },
+      }
+    }
+  }
+</script>
+<style>
+  html { scroll-behavior: smooth; }
+  body { font-family: 'Inter', sans-serif; color: #16213E; }
+  h1, h2, h3, .font-display { font-family: 'Manrope', sans-serif; }
+  .font-mono-num { font-family: 'IBM Plex Mono', monospace; }
+  :focus-visible { outline: 2px solid #5B7EBD; outline-offset: 2px; }
+  .sr-only { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
+
+  .skip-link { position: absolute; left: 1rem; top: -3rem; z-index: 100; background: #16213E; color: #fff; padding: .65rem 1.1rem; border-radius: 9999px; font-size: .875rem; font-weight: 600; transition: top .2s ease; }
+  .skip-link:focus { top: 1rem; }
+
+  .nav-link { position: relative; }
+  .nav-link::after { content:''; position:absolute; left:0; bottom:-4px; height:2px; width:0; background:#5B7EBD; transition:width .25s ease; }
+  .nav-link:hover::after { width:100%; }
+  .btn-primary { background:#16213E; }
+  .btn-primary:hover { background:#3E5D97; }
+  #mobile-menu { max-height:0; overflow:hidden; transition:max-height .35s ease; }
+  #mobile-menu.open { max-height:480px; }
+
+  /* Form */
+  .option-card { display:flex; align-items:center; gap:.75rem; border:1px solid #E3E6F0; border-radius:.9rem; padding:.95rem 1.1rem; cursor:pointer; transition:border-color .2s ease, background .2s ease, box-shadow .2s ease; background:#fff; }
+  .option-card:hover { border-color:#C4B3D8; }
+  .option-card.is-checked { border-color:#5B7EBD; background:rgba(91,126,189,.06); box-shadow:0 0 0 1px #5B7EBD inset; }
+  .option-mark { width:20px; height:20px; border:2px solid #C7CEDC; border-radius:9999px; flex-shrink:0; display:flex; align-items:center; justify-content:center; transition:border-color .2s ease, background .2s ease; }
+  .option-card input[type="checkbox"] ~ .option-mark { border-radius:6px; }
+  .option-card.is-checked .option-mark { border-color:#5B7EBD; background:#5B7EBD; }
+  .option-mark svg { opacity:0; transition:opacity .15s ease; }
+  .option-card.is-checked .option-mark svg { opacity:1; }
+
+  .field-label { display:block; font-weight:600; font-size:.875rem; color:#16213E; margin-bottom:.4rem; }
+  .field-input { width:100%; border:1px solid #E3E6F0; border-radius:.65rem; padding:.75rem .9rem; font-size:.95rem; color:#16213E; background:#fff; transition:border-color .2s ease; }
+  .field-input:focus { border-color:#5B7EBD; }
+  .field-input.field-error { border-color:#D9534F; }
+  .field-err-msg { color:#D9534F; font-size:.8rem; margin-top:.35rem; }
+
+  .step { animation: stepIn .35s ease; }
+  @keyframes stepIn { from { opacity:0; transform:translateY(10px);} to { opacity:1; transform:translateY(0);} }
+
+  .progress-dot { width:2rem; height:2rem; border-radius:9999px; border:2px solid #E3E6F0; display:flex; align-items:center; justify-content:center; font-family:'IBM Plex Mono',monospace; font-size:.75rem; font-weight:600; color:#8891A3; background:#fff; transition:all .25s ease; }
+  .progress-dot.is-current { border-color:#16213E; color:#16213E; }
+  .progress-dot.is-done { background:#16213E; border-color:#16213E; color:#fff; }
+  .progress-line { flex:1; height:2px; background:#E3E6F0; margin:0 .35rem; }
+  .progress-line.is-done { background:#16213E; }
+
+  .spinner { width:16px; height:16px; border:2px solid rgba(255,255,255,.35); border-top-color:#fff; border-radius:9999px; animation:spin .7s linear infinite; }
+  @keyframes spin { to { transform:rotate(360deg); } }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior:auto; }
+    .step { animation:none; }
+  }
+</style>
+</head>
+<body class="bg-white text-ink antialiased">
+
+<a href="#top" class="skip-link">Skip to main content</a>
+
+<!-- ============ NAV ============ -->
+<header class="sticky top-0 z-50 bg-white/90 backdrop-blur border-b border-line">
+  <nav class="max-w-7xl mx-auto px-5 sm:px-8 h-20 flex items-center justify-between" aria-label="Primary">
+    <a href="index.html" class="flex items-center gap-2.5 shrink-0" aria-label="MindMed Tutors home">
+      <svg width="34" height="34" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M50 8 L88 24 L50 40 L12 24 Z" fill="#5B7EBD" stroke="#16213E" stroke-width="3" stroke-linejoin="round"/>
+        <path d="M50 40v14" stroke="#16213E" stroke-width="3"/>
+        <path d="M28 46c0-12 9-20 22-20s22 8 22 20c0 5-2 9-5 12 1 8-3 17-14 19v3h-6v-3c-11-2-15-11-14-19-3-3-5-7-5-12z" fill="#F3F5FA" stroke="#16213E" stroke-width="3"/>
+        <path d="M50 26v52" stroke="#16213E" stroke-width="3"/>
+        <path d="M50 26c13 0 22 8 22 20 0 5-2 9-5 12 1 8-3 17-14 19" fill="#A78FC0" stroke="#16213E" stroke-width="3"/>
+      </svg>
+      <span class="font-display font-extrabold text-lg tracking-tight leading-none">
+        <span class="text-lav-dark">Mind</span><span class="text-blue-dark">Med</span>
+        <span class="block text-[10px] font-semibold tracking-[0.25em] text-ink mt-0.5">TUTORS</span>
+      </span>
+    </a>
+
+    <ul class="hidden lg:flex items-center gap-8 font-medium text-sm text-slate">
+      <li><a href="index.html" class="nav-link hover:text-ink">Home</a></li>
+      <li><a href="medicine.html" class="nav-link hover:text-ink">Medicine</a></li>
+      <li><a href="ucat.html" class="nav-link hover:text-ink">UCAT</a></li>
+      <li><a href="mmi.html" class="nav-link hover:text-ink">MMI &amp; Interviews</a></li>
+      <li><a href="tutoring.html" class="nav-link hover:text-ink">Tutoring</a></li>
+      <li><a href="about.html" class="nav-link hover:text-ink">About Us</a></li>
+      <li><a href="resources.html" class="nav-link hover:text-ink">Resources</a></li>
+      <li><a href="contact.html" class="nav-link hover:text-ink">Contact</a></li>
+    </ul>
+
+    <div class="hidden lg:flex items-center gap-3">
+      <a href="contact.html" class="text-sm font-semibold text-ink hover:text-blue-dark transition-colors">Book a Session</a>
+      <a href="get-started.html" class="btn-primary text-white text-sm font-semibold px-5 py-2.5 rounded-full transition-colors">Start Your Journey</a>
+    </div>
+
+    <button id="menu-toggle" class="lg:hidden p-2 -mr-2" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobile-menu">
+      <svg id="icon-open" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#16213E" stroke-width="2" stroke-linecap="round"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+      <svg id="icon-close" class="hidden" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#16213E" stroke-width="2" stroke-linecap="round"><path d="M6 6l12 12M18 6L6 18"/></svg>
+    </button>
+  </nav>
+
+  <div id="mobile-menu" class="lg:hidden border-t border-line bg-white">
+    <ul class="flex flex-col px-5 py-4 gap-1 font-medium text-sm text-slate">
+      <li><a href="index.html" class="block py-2.5">Home</a></li>
+      <li><a href="medicine.html" class="block py-2.5">Medicine</a></li>
+      <li><a href="ucat.html" class="block py-2.5">UCAT</a></li>
+      <li><a href="mmi.html" class="block py-2.5">MMI &amp; Interviews</a></li>
+      <li><a href="tutoring.html" class="block py-2.5">Tutoring</a></li>
+      <li><a href="about.html" class="block py-2.5">About Us</a></li>
+      <li><a href="resources.html" class="block py-2.5">Resources</a></li>
+      <li><a href="contact.html" class="block py-2.5">Contact</a></li>
+    </ul>
+  </div>
+</header>
+
+<main id="top">
+  <section class="bg-mist border-b border-line">
+    <div class="max-w-3xl mx-auto px-5 sm:px-8 pt-14 pb-12 text-center">
+      <p class="font-mono-num text-xs tracking-[0.2em] text-blue-dark font-semibold mb-4">GET STARTED</p>
+      <h1 class="font-display font-extrabold text-3xl sm:text-4xl text-ink">Let's find the right support for you.</h1>
+      <p class="mt-4 text-slate max-w-xl mx-auto">A few quick questions — then we'll be in touch to talk through the best option for you.</p>
+    </div>
+  </section>
+
+  <section class="max-w-2xl mx-auto px-5 sm:px-8 py-14">
+
+    <!-- Progress -->
+    <div id="progress" class="flex items-center mb-4">
+      <div class="progress-dot is-current" data-dot="1">1</div>
+      <div class="progress-line" data-line="1"></div>
+      <div class="progress-dot" data-dot="2">2</div>
+      <div class="progress-line" data-line="2"></div>
+      <div class="progress-dot" data-dot="3">3</div>
+      <div class="progress-line" data-line="3"></div>
+      <div class="progress-dot" data-dot="4">4</div>
+      <div class="progress-line" data-line="4"></div>
+      <div class="progress-dot" data-dot="5">5</div>
+    </div>
+    <p id="step-announce" class="text-xs font-semibold text-slate/70 mb-10" aria-live="polite">Step 1 of 5</p>
+
+    <form id="enquiry-form" novalidate>
+      <!-- Honeypot — real users never see or fill this in -->
+      <div class="sr-only" aria-hidden="true">
+        <label for="company">Leave this field blank</label>
+        <input type="text" id="company" name="company" tabindex="-1" autocomplete="off">
+      </div>
+
+      <!-- STEP 1 -->
+      <fieldset class="step" data-step="1" tabindex="-1">
+        <legend class="font-display font-bold text-2xl text-ink mb-1">What are you preparing for?</legend>
+        <p class="text-sm text-slate mb-6">Select all that apply.</p>
+        <div class="grid sm:grid-cols-2 gap-3" role="group" aria-label="What are you preparing for">
+          <label class="option-card"><input type="checkbox" name="interests" value="medicine" class="sr-only"><span class="option-mark"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></span><span class="text-sm font-semibold">Medicine (general)</span></label>
+          <label class="option-card"><input type="checkbox" name="interests" value="ucat" class="sr-only"><span class="option-mark"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></span><span class="text-sm font-semibold">UCAT</span></label>
+          <label class="option-card"><input type="checkbox" name="interests" value="mmi" class="sr-only"><span class="option-mark"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></span><span class="text-sm font-semibold">MMI / Interview</span></label>
+          <label class="option-card"><input type="checkbox" name="interests" value="gcse" class="sr-only"><span class="option-mark"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></span><span class="text-sm font-semibold">GCSE tutoring</span></label>
+          <label class="option-card"><input type="checkbox" name="interests" value="alevel" class="sr-only"><span class="option-mark"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></span><span class="text-sm font-semibold">A-Level tutoring</span></label>
+          <label class="option-card"><input type="checkbox" name="interests" value="medschool" class="sr-only"><span class="option-mark"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></span><span class="text-sm font-semibold">Medical school tutoring</span></label>
+          <label class="option-card sm:col-span-2"><input type="checkbox" name="interests" value="notsure" class="sr-only"><span class="option-mark"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></span><span class="text-sm font-semibold">Not sure yet</span></label>
+        </div>
+        <p class="field-err-msg hidden" data-err="1" role="alert">Select at least one option to continue.</p>
+      </fieldset>
+
+      <!-- STEP 2 -->
+      <fieldset class="step hidden" data-step="2" tabindex="-1">
+        <legend class="font-display font-bold text-2xl text-ink mb-1">When are you applying / sitting your exam?</legend>
+        <p class="text-sm text-slate mb-6">This helps us understand your timeline.</p>
+
+        <label class="field-label" for="timeframe">Roughly when are you hoping to start?</label>
+        <select id="timeframe" name="timeframe" class="field-input mb-2">
+          <option value="">Select an option</option>
+          <option value="asap">As soon as possible</option>
+          <option value="1-3m">Within 1–3 months</option>
+          <option value="3-6m">Within 3–6 months</option>
+          <option value="6m+">6+ months away</option>
+          <option value="not-sure">Not sure yet</option>
+        </select>
+        <p class="field-err-msg hidden" data-err="2">Please let us know your rough timeframe.</p>
+
+        <div id="sub-ucat" class="hidden mt-8 border-t border-line pt-6">
+          <p class="font-semibold text-sm text-ink mb-3">UCAT</p>
+          <label class="field-label" for="ucat-started">Have you started UCAT preparation?</label>
+          <select id="ucat-started" name="ucatStarted" class="field-input mb-4">
+            <option value="">Select an option</option>
+            <option value="not-started">Not yet</option>
+            <option value="started">Yes, already started</option>
+            <option value="finished-first-pass">Been through the material once</option>
+          </select>
+          <label class="field-label" for="ucat-date">Planned test date (if known)</label>
+          <input type="text" id="ucat-date" name="ucatDate" class="field-input mb-4" placeholder="e.g. July 2027">
+          <label class="field-label" for="ucat-target">Target score (optional)</label>
+          <input type="text" id="ucat-target" name="ucatTarget" class="field-input" placeholder="e.g. 2500">
+        </div>
+
+        <div id="sub-medicine" class="hidden mt-8 border-t border-line pt-6">
+          <p class="font-semibold text-sm text-ink mb-3">Medicine application</p>
+          <label class="field-label" for="med-applying">Are you applying this year?</label>
+          <select id="med-applying" name="medApplying" class="field-input mb-4">
+            <option value="">Select an option</option>
+            <option value="yes">Yes</option>
+            <option value="no">No, a future cycle</option>
+            <option value="not-sure">Not sure yet</option>
+          </select>
+          <label class="field-label" for="med-unis">Universities you're considering (optional)</label>
+          <input type="text" id="med-unis" name="medUnis" class="field-input" placeholder="e.g. still deciding">
+        </div>
+
+        <div id="sub-mmi" class="hidden mt-8 border-t border-line pt-6">
+          <p class="font-semibold text-sm text-ink mb-3">MMI / Interview</p>
+          <label class="field-label" for="mmi-date">Do you have an interview date yet?</label>
+          <select id="mmi-date" name="mmiDate" class="field-input">
+            <option value="">Select an option</option>
+            <option value="yes">Yes</option>
+            <option value="no">No, not yet</option>
+            <option value="not-sure">Not sure</option>
+          </select>
+        </div>
+
+        <div id="sub-tutoring" class="hidden mt-8 border-t border-line pt-6">
+          <p class="font-semibold text-sm text-ink mb-3">GCSE / A-Level tutoring</p>
+          <label class="field-label" for="tut-year">Current year group</label>
+          <select id="tut-year" name="tutYear" class="field-input mb-4">
+            <option value="">Select an option</option>
+            <option>Year 10</option>
+            <option>Year 11</option>
+            <option>Year 12</option>
+            <option>Year 13</option>
+            <option>Other</option>
+          </select>
+          <div class="grid sm:grid-cols-2 gap-4">
+            <div>
+              <label class="field-label" for="tut-board">Exam board (optional)</label>
+              <input type="text" id="tut-board" name="tutBoard" class="field-input">
+            </div>
+            <div>
+              <label class="field-label" for="tut-current">Current grade (optional)</label>
+              <input type="text" id="tut-current" name="tutCurrent" class="field-input">
+            </div>
+          </div>
+          <label class="field-label mt-4" for="tut-target">Target grade (optional)</label>
+          <input type="text" id="tut-target" name="tutTarget" class="field-input">
+        </div>
+      </fieldset>
+
+      <!-- STEP 3 -->
+      <fieldset class="step hidden" data-step="3" tabindex="-1">
+        <legend class="font-display font-bold text-2xl text-ink mb-1">What support are you looking for?</legend>
+        <p class="text-sm text-slate mb-6">Choose whichever fits best — we can talk through the details later.</p>
+        <div class="space-y-3" role="radiogroup" aria-label="Support type">
+          <label class="option-card"><input type="radio" name="supportType" value="1to1" class="sr-only"><span class="option-mark"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></span><span class="text-sm font-semibold">1‑to‑1</span></label>
+          <label class="option-card"><input type="radio" name="supportType" value="group" class="sr-only"><span class="option-mark"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></span><span class="text-sm font-semibold">Small group</span></label>
+          <label class="option-card"><input type="radio" name="supportType" value="notsure" class="sr-only"><span class="option-mark"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></span><span class="text-sm font-semibold">Not sure — advise me</span></label>
+        </div>
+        <p class="field-err-msg hidden" data-err="3">Please choose an option to continue.</p>
+      </fieldset>
+
+      <!-- STEP 4 -->
+      <fieldset class="step hidden" data-step="4" tabindex="-1">
+        <legend class="font-display font-bold text-2xl text-ink mb-1">Tell us about your goals</legend>
+        <p class="text-sm text-slate mb-6">Tell us a little about what you'd like help with.</p>
+        <textarea name="goals" id="goals" rows="6" class="field-input" placeholder="Anything that would help us understand your situation — current strengths, worries, or what 'success' looks like for you."></textarea>
+      </fieldset>
+
+      <!-- STEP 5 -->
+      <fieldset class="step hidden" data-step="5" tabindex="-1">
+        <legend class="font-display font-bold text-2xl text-ink mb-1">Your details</legend>
+        <p class="text-sm text-slate mb-6">So we know who we're talking to, and how to reach you.</p>
+
+        <div class="grid sm:grid-cols-2 gap-4">
+          <div>
+            <label class="field-label" for="student-name">Student name</label>
+            <input type="text" id="student-name" name="studentName" class="field-input" required autocomplete="name">
+            <p class="field-err-msg hidden" data-err="studentName">Please enter your name.</p>
+          </div>
+          <div>
+            <label class="field-label" for="parent-name">Parent / guardian name (optional)</label>
+            <input type="text" id="parent-name" name="parentName" class="field-input" autocomplete="off">
+          </div>
+        </div>
+
+        <div class="grid sm:grid-cols-2 gap-4 mt-4">
+          <div>
+            <label class="field-label" for="email">Email</label>
+            <input type="email" id="email" name="email" class="field-input" required autocomplete="email">
+            <p class="field-err-msg hidden" data-err="email">Enter a valid email address.</p>
+          </div>
+          <div>
+            <label class="field-label" for="phone">Phone number</label>
+            <input type="tel" id="phone" name="phone" class="field-input" required autocomplete="tel">
+            <p class="field-err-msg hidden" data-err="phone">Enter a valid phone number.</p>
+          </div>
+        </div>
+
+        <div class="mt-4">
+          <label class="field-label" for="age-group">Age / year group</label>
+          <select id="age-group" name="ageGroup" class="field-input" required>
+            <option value="">Select an option</option>
+            <option>Year 10</option>
+            <option>Year 11</option>
+            <option>Year 12</option>
+            <option>Year 13</option>
+            <option>University / graduate</option>
+            <option>Parent enquiring on behalf of a student</option>
+            <option>Other</option>
+          </select>
+          <p class="field-err-msg hidden" data-err="ageGroup">Please select an option.</p>
+        </div>
+
+        <label class="flex items-start gap-3 mt-6 cursor-pointer">
+          <input type="checkbox" id="consent" name="consent" class="mt-1" required>
+          <span class="text-sm text-slate">I agree to MindMed Tutors contacting me about my enquiry, in line with the <a href="#" class="text-blue-dark font-semibold underline">Privacy Policy</a>.</span>
+        </label>
+        <p class="field-err-msg hidden" data-err="consent">Please confirm you're happy for us to get in touch.</p>
+      </fieldset>
+
+      <p id="form-error" class="hidden text-sm text-red-600 mt-6" role="alert"></p>
+
+      <div class="mt-10 flex items-center justify-between">
+        <button type="button" id="btn-back" class="text-sm font-semibold text-slate hover:text-ink transition-colors hidden">← Back</button>
+        <span></span>
+        <button type="button" id="btn-next" class="btn-primary text-white font-semibold px-7 py-3.5 rounded-full transition-colors">Continue</button>
+        <button type="submit" id="btn-submit" class="btn-primary text-white font-semibold px-7 py-3.5 rounded-full transition-colors hidden inline-flex items-center gap-2">
+          <span id="submit-label">Submit Enquiry</span>
+          <span id="submit-spinner" class="spinner hidden"></span>
+        </button>
+      </div>
+    </form>
+
+    <!-- SUCCESS -->
+    <div id="success-screen" class="hidden text-center py-10" tabindex="-1">
+      <div class="w-16 h-16 rounded-full bg-blue/10 flex items-center justify-center mx-auto mb-6">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#3E5D97" stroke-width="2.5"><path d="M5 13l4 4L19 7"/></svg>
+      </div>
+      <h2 class="font-display font-extrabold text-3xl text-ink">You're one step closer.</h2>
+      <p class="mt-4 text-slate max-w-md mx-auto">Thanks — we've received your enquiry. We'll be in touch shortly to discuss the best option for you.</p>
+      <a href="index.html" class="mt-8 inline-block font-semibold text-blue-dark">← Back to homepage</a>
+    </div>
+
+  </section>
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="bg-ink text-white/70">
+  <div class="max-w-7xl mx-auto px-5 sm:px-8 py-16 grid sm:grid-cols-2 lg:grid-cols-4 gap-10">
+    <div>
+      <span class="font-display font-extrabold text-lg text-white">
+        <span class="text-lav-light">Mind</span><span class="text-blue-light">Med</span> Tutors
+      </span>
+      <p class="mt-3 text-sm leading-relaxed max-w-xs">UK-focused medical school admissions coaching and academic tutoring.</p>
+    </div>
+    <div>
+      <p class="text-white font-semibold text-sm mb-4">Navigate</p>
+      <ul class="space-y-2.5 text-sm">
+        <li><a href="index.html" class="hover:text-white transition-colors">Home</a></li>
+        <li><a href="medicine.html" class="hover:text-white transition-colors">Medicine</a></li>
+        <li><a href="ucat.html" class="hover:text-white transition-colors">UCAT</a></li>
+        <li><a href="mmi.html" class="hover:text-white transition-colors">MMI</a></li>
+        <li><a href="tutoring.html" class="hover:text-white transition-colors">Tutoring</a></li>
+        <li><a href="about.html" class="hover:text-white transition-colors">About</a></li>
+        <li><a href="resources.html" class="hover:text-white transition-colors">Resources</a></li>
+        <li><a href="contact.html" class="hover:text-white transition-colors">Contact</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="text-white font-semibold text-sm mb-4">Legal</p>
+      <ul class="space-y-2.5 text-sm">
+        <li><a href="#" class="hover:text-white transition-colors">Privacy Policy</a></li>
+        <li><a href="#" class="hover:text-white transition-colors">Terms &amp; Conditions</a></li>
+        <li><a href="#" class="hover:text-white transition-colors">Cookie Policy</a></li>
+      </ul>
+    </div>
+    <div>
+      <p class="text-white font-semibold text-sm mb-4">Follow</p>
+      <ul class="space-y-2.5 text-sm">
+        <li><a href="#" class="hover:text-white transition-colors">TikTok</a></li>
+        <li><a href="#" class="hover:text-white transition-colors">Instagram</a></li>
+        <li><a href="#" class="hover:text-white transition-colors">YouTube</a></li>
+        <li><a href="#" class="hover:text-white transition-colors">LinkedIn</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="border-t border-white/10 py-6 px-5 sm:px-8 text-xs text-center text-white/50">
+    &copy; <span id="year"></span> MindMed Tutors. All rights reserved.
+  </div>
+</footer>
+
+<script>
+  // ---- Nav toggle ----
+  const toggle = document.getElementById('menu-toggle');
+  const menu = document.getElementById('mobile-menu');
+  const iconOpen = document.getElementById('icon-open');
+  const iconClose = document.getElementById('icon-close');
+  toggle.addEventListener('click', () => {
+    const isOpen = menu.classList.toggle('open');
+    toggle.setAttribute('aria-expanded', isOpen);
+    iconOpen.classList.toggle('hidden', isOpen);
+    iconClose.classList.toggle('hidden', !isOpen);
+  });
+  document.getElementById('year').textContent = new Date().getFullYear();
+
+  // ---- Option card visual state ----
+  document.querySelectorAll('.option-card input').forEach(inp => {
+    inp.addEventListener('change', () => {
+      const card = inp.closest('.option-card');
+      if (inp.type === 'checkbox') {
+        card.classList.toggle('is-checked', inp.checked);
+      } else {
+        document.querySelectorAll(`.option-card input[name="${inp.name}"]`).forEach(sib => sib.closest('.option-card').classList.remove('is-checked'));
+        card.classList.add('is-checked');
+      }
+    });
+  });
+
+  // ---- Multi-step logic ----
+  const totalSteps = 5;
+  let currentStep = 1;
+  const form = document.getElementById('enquiry-form');
+  const steps = [...document.querySelectorAll('.step')];
+  const btnBack = document.getElementById('btn-back');
+  const btnNext = document.getElementById('btn-next');
+  const btnSubmit = document.getElementById('btn-submit');
+  const announce = document.getElementById('step-announce');
+  const stepTitles = {1:'What you\'re preparing for', 2:'Your timeline', 3:'Support type', 4:'Your goals', 5:'Your details'};
+
+  function updateProgress() {
+    for (let i = 1; i <= totalSteps; i++) {
+      const dot = document.querySelector(`[data-dot="${i}"]`);
+      dot.classList.remove('is-current', 'is-done');
+      dot.textContent = i;
+      if (i < currentStep) {
+        dot.classList.add('is-done');
+        dot.innerHTML = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg>';
+      } else if (i === currentStep) dot.classList.add('is-current');
+      const line = document.querySelector(`[data-line="${i}"]`);
+      if (line) line.classList.toggle('is-done', i < currentStep);
+    }
+    announce.textContent = `Step ${currentStep} of ${totalSteps}: ${stepTitles[currentStep]}`;
+  }
+
+  function showStep(n) {
+    steps.forEach(s => s.classList.toggle('hidden', Number(s.dataset.step) !== n));
+    btnBack.classList.toggle('hidden', n === 1);
+    btnNext.classList.toggle('hidden', n === totalSteps);
+    btnSubmit.classList.toggle('hidden', n !== totalSteps);
+    updateProgress();
+    const activeFieldset = document.querySelector(`.step[data-step="${n}"]`);
+    activeFieldset.focus({ preventScroll: false });
+    window.scrollTo({ top: activeFieldset.getBoundingClientRect().top + window.scrollY - 110, behavior: 'smooth' });
+  }
+
+  function setError(key, show) {
+    const el = document.querySelector(`[data-err="${key}"]`);
+    if (el) el.classList.toggle('hidden', !show);
+  }
+
+  function validateStep(n) {
+    let valid = true;
+    if (n === 1) {
+      const checked = document.querySelectorAll('input[name="interests"]:checked').length > 0;
+      setError(1, !checked);
+      valid = checked;
+    }
+    if (n === 2) {
+      const val = document.getElementById('timeframe').value;
+      setError(2, !val);
+      valid = !!val;
+    }
+    if (n === 3) {
+      const checked = document.querySelector('input[name="supportType"]:checked');
+      setError(3, !checked);
+      valid = !!checked;
+    }
+    if (n === 5) {
+      const name = document.getElementById('student-name');
+      const email = document.getElementById('email');
+      const phone = document.getElementById('phone');
+      const age = document.getElementById('age-group');
+      const consent = document.getElementById('consent');
+      const emailOk = /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.value.trim());
+      const phoneOk = /^[+]?[\d\s()-]{7,20}$/.test(phone.value.trim());
+      setError('studentName', !name.value.trim());
+      setError('email', !emailOk);
+      setError('phone', !phoneOk);
+      setError('ageGroup', !age.value);
+      setError('consent', !consent.checked);
+      valid = name.value.trim() && emailOk && phoneOk && age.value && consent.checked;
+    }
+    return valid;
+  }
+
+  function updateStep2Visibility() {
+    const interests = [...document.querySelectorAll('input[name="interests"]:checked')].map(i => i.value);
+    document.getElementById('sub-ucat').classList.toggle('hidden', !interests.includes('ucat'));
+    document.getElementById('sub-medicine').classList.toggle('hidden', !(interests.includes('medicine') || interests.includes('medschool')));
+    document.getElementById('sub-mmi').classList.toggle('hidden', !interests.includes('mmi'));
+    document.getElementById('sub-tutoring').classList.toggle('hidden', !(interests.includes('gcse') || interests.includes('alevel')));
+  }
+
+  btnNext.addEventListener('click', () => {
+    if (!validateStep(currentStep)) return;
+    if (currentStep === 1) updateStep2Visibility();
+    currentStep = Math.min(currentStep + 1, totalSteps);
+    showStep(currentStep);
+  });
+
+  btnBack.addEventListener('click', () => {
+    currentStep = Math.max(currentStep - 1, 1);
+    showStep(currentStep);
+  });
+
+  /*
+   * FORM SUBMISSION
+   * ----------------
+   * submitEnquiry() is the single integration point for connecting this
+   * form to a real backend. Replace the body below with a fetch() call to
+   * your chosen provider (Jotform / Formspree / Supabase / HubSpot / your
+   * own API route) — nothing else in the form needs to change.
+   * Never put API keys or secrets in this file; call your own serverless
+   * endpoint and keep credentials there.
+   */
+  async function submitEnquiry(payload) {
+    // Example real integration:
+    // const res = await fetch('/api/enquiry', {
+    //   method: 'POST',
+    //   headers: { 'Content-Type': 'application/json' },
+    //   body: JSON.stringify(payload),
+    // });
+    // if (!res.ok) throw new Error('Submission failed');
+    // return res.json();
+    return new Promise((resolve) => setTimeout(() => resolve({ ok: true }), 1200));
+  }
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    if (!validateStep(5)) return;
+
+    // Honeypot: if filled, silently drop the submission (bot traffic)
+    if (document.getElementById('company').value.trim() !== '') return;
+
+    const formError = document.getElementById('form-error');
+    formError.classList.add('hidden');
+    btnSubmit.disabled = true;
+    document.getElementById('submit-label').textContent = 'Submitting…';
+    document.getElementById('submit-spinner').classList.remove('hidden');
+
+    const payload = Object.fromEntries(new FormData(form).entries());
+    payload.interests = [...document.querySelectorAll('input[name="interests"]:checked')].map(i => i.value);
+
+    try {
+      await submitEnquiry(payload);
+      form.classList.add('hidden');
+      document.getElementById('progress').classList.add('hidden');
+      announce.classList.add('hidden');
+      const success = document.getElementById('success-screen');
+      success.classList.remove('hidden');
+      success.focus();
+    } catch (err) {
+      formError.textContent = "Something went wrong sending your enquiry — please try again, or email us directly.";
+      formError.classList.remove('hidden');
+    } finally {
+      btnSubmit.disabled = false;
+      document.getElementById('submit-label').textContent = 'Submit Enquiry';
+      document.getElementById('submit-spinner').classList.add('hidden');
+    }
+  });
+
+  showStep(1);
+</script>
+</body>
+</html>
