@@ -49,13 +49,17 @@
   .nav-link { position: relative; }
   .nav-link::after { content:''; position:absolute; left:0; bottom:-4px; height:2px; width:0; background:#5B7EBD; transition:width .25s ease; }
   .nav-link:hover::after { width:100%; }
-  .btn-primary { background:#16213E; }
+  .btn-primary { background:#16213E; border-radius:9999px; }
   .btn-primary:hover { background:#3E5D97; }
+  .btn-primary .arrow { transition: transform .2s ease; display:inline-block; }
+  .btn-primary:hover .arrow { transform: translateX(3px); }
+  .btn-outline { background:transparent; border:1.5px solid #16213E; border-radius:9999px; }
+  .btn-outline:hover { background:#16213E; color:#fff; }
   #mobile-menu { max-height:0; overflow:hidden; transition:max-height .35s ease; }
   #mobile-menu.open { max-height:480px; }
 
   /* Form */
-  .option-card { display:flex; align-items:center; gap:.75rem; border:1px solid #E3E6F0; border-radius:.9rem; padding:.95rem 1.1rem; cursor:pointer; transition:border-color .2s ease, background .2s ease, box-shadow .2s ease; background:#fff; }
+  .option-card { display:flex; align-items:center; gap:.75rem; border:1px solid #E3E6F0; border-radius:14px; padding:.95rem 1.1rem; cursor:pointer; transition:border-color .2s ease, background .2s ease, box-shadow .2s ease; background:#fff; }
   .option-card:hover { border-color:#C4B3D8; }
   .option-card.is-checked { border-color:#5B7EBD; background:rgba(91,126,189,.06); box-shadow:0 0 0 1px #5B7EBD inset; }
   .option-mark { width:20px; height:20px; border:2px solid #C7CEDC; border-radius:9999px; flex-shrink:0; display:flex; align-items:center; justify-content:center; transition:border-color .2s ease, background .2s ease; }
@@ -121,8 +125,8 @@
     </ul>
 
     <div class="hidden lg:flex items-center gap-3">
-      <a href="contact.html" class="text-sm font-semibold text-ink hover:text-blue-dark transition-colors">Book a Session</a>
-      <a href="get-started.html" class="btn-primary text-white text-sm font-semibold px-5 py-2.5 rounded-full transition-colors">Start Your Journey</a>
+      <a href="contact.html" class="btn-outline text-ink text-sm font-semibold px-5 py-2.5 transition-colors">Book a Session</a>
+      <a href="get-started.html" class="btn-primary text-white text-sm font-semibold px-5 py-2.5 transition-colors inline-flex items-center gap-1.5">Start Your Journey <span class="arrow">→</span></a>
     </div>
 
     <button id="menu-toggle" class="lg:hidden p-2 -mr-2" aria-label="Toggle menu" aria-expanded="false" aria-controls="mobile-menu">
