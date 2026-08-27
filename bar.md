@@ -140,3 +140,25 @@ reject its *saturation*. Characters are built from the MindMed palette
 **Check:** sample every fill in the illustration. Any colour outside the
 MindMed palette fails. If a parent would not trust the section with their
 child's medical-school application, it fails regardless of what else passes.
+
+### Documented exception: skin tones
+
+Applied literally the rule above makes human characters impossible — figures
+come out monochrome blue, which breaks M2 (characters must read as people)
+harder than it protects the brand. Skin and hair therefore draw from a fixed,
+deliberately muted ramp, and nothing else may use these values:
+
+| Role | Base | Shadow |
+|---|---|---|
+| Skin light | `#F0D2BB` | `#DCB89E` |
+| Skin mid | `#C98D68` | `#B0764F` |
+| Skin deep | `#7D4E33` | `#653C26` |
+| Hair warm dark | `#3A2A22` | `#2A1D17` |
+
+Hair may also use `#16213E` and `#A78FC0` from the main palette. **Clothing,
+props and every object remain strictly on the MindMed palette** — that is where
+the brand has to live, and it is what the check below now measures.
+
+**Check:** sample every fill on clothing, props and objects. Any value outside
+the MindMed palette fails. Skin and hair may additionally use the ramp above,
+and nothing outside it.
