@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Section — Prepare anywhere (design-loop working file)</title>
+<title>Section — Prepare for medicine (design-loop working file)</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@500;600&display=swap" rel="stylesheet">
@@ -18,27 +18,13 @@
   body{margin:0;font-family:'Inter',sans-serif;color:var(--ink);background:#fff;}
   h2{font-family:'Manrope',sans-serif;letter-spacing:-0.01em;margin:0;}
 
-  /* ============================================================
-     SECTION SHELL
-     M6 — one flat background colour, not white, unmodulated.
-     ============================================================ */
   .anywhere{
-    position:relative;
-    background:var(--mist);
-    overflow:hidden;
-    padding:104px 20px 112px;
-    isolation:isolate;
+    position:relative; background:var(--mist); overflow:hidden;
+    padding:104px 20px 112px; isolation:isolate;
   }
 
-  /* ============================================================
-     CENTRE COLUMN
-     M4 — the centre third is the text island; no object enters it.
-     M7 — headline is the only large type on the frame.
-     ============================================================ */
-  .centre{
-    position:relative; z-index:3;
-    max-width:760px; margin:0 auto; text-align:center;
-  }
+  /* ---------- CENTRE COLUMN (M4 corridor, M7 hierarchy) ---------- */
+  .centre{position:relative; z-index:3; max-width:760px; margin:0 auto; text-align:center;}
   .eyebrow{
     font-family:'IBM Plex Mono',monospace;
     font-size:12px; font-weight:600; letter-spacing:.2em;
@@ -46,58 +32,41 @@
   }
   .headline{
     font-size:clamp(2.4rem,5.4vw,3.75rem);
-    font-weight:800; line-height:1.06; letter-spacing:-0.022em;
-    color:var(--ink);
+    font-weight:800; line-height:1.06; letter-spacing:-0.022em; color:var(--ink);
   }
-  .sub{
-    margin:22px auto 0; max-width:470px;
-    font-size:1.0625rem; line-height:1.65; color:var(--slate);
+  .sub{margin:22px auto 0; max-width:520px; font-size:1.0625rem; line-height:1.65; color:var(--slate);}
+  /* The service line names the four things we actually sell. It is the
+     robust carrier of meaning: it survives every breakpoint, unlike the
+     illustration, so the section can never end up not saying "medicine". */
+  .services{
+    margin:26px auto 0; font-family:'IBM Plex Mono',monospace;
+    font-size:11.5px; font-weight:600; letter-spacing:.13em;
+    color:var(--slate); opacity:.85;
   }
-  .cta-row{margin-top:34px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap;}
+  .services span{white-space:nowrap;}
+  .services i{font-style:normal;color:var(--lav-d);padding:0 .55em;}
+  .cta-row{margin-top:34px;}
   .btn-primary{
     background:var(--ink); color:#fff; border-radius:9999px;
-    padding:14px 30px; font-weight:600; font-size:.9375rem;
-    text-decoration:none; display:inline-flex; align-items:center; gap:8px;
+    padding:15px 32px; font-weight:600; font-size:.9375rem;
+    text-decoration:none; display:inline-flex; align-items:center; gap:9px;
     transition:background .25s ease;
   }
   .btn-primary:hover{background:var(--blue-d);}
   .btn-primary .arrow{display:inline-block;transition:transform .2s ease;}
   .btn-primary:hover .arrow{transform:translateX(3px);}
-  .btn-outline{
-    background:transparent; color:var(--ink); border:1.5px solid var(--ink);
-    border-radius:9999px; padding:14px 30px; font-weight:600; font-size:.9375rem;
-    text-decoration:none; display:inline-flex; align-items:center;
-    transition:background .25s ease,color .25s ease;
-  }
-  .btn-outline:hover{background:var(--ink);color:#fff;}
 
-  /* ============================================================
-     SCATTERED FIELD
-     Three nested layers keep concerns separate:
-       .obj       — position + entrance (opacity/scale)
-       .obj-rot   — the M5 base rotation, never animated
-       .obj-drift — the M8/M9 idle drift
-     ============================================================ */
-  /* The field never spans the full width. It is split into two gutters that
-     are defined as whatever is left over once the text corridor is reserved:
-     calc(50% - 420px) each side of a 760px-max text column plus breathing room.
-     M4 is therefore structural — an object cannot reach the text, because the
-     box it lives in stops before the text begins. */
+  /* ---------- FIELD: two gutters, text corridor structurally unreachable ---------- */
   .field{position:absolute;inset:0;z-index:1;pointer-events:none;}
   .gutter{position:absolute;top:0;bottom:0;width:calc(50% - 420px);}
-  .gutter-l{left:0;}
-  .gutter-r{right:0;}
+  .gutter-l{left:0;} .gutter-r{right:0;}
 
   .obj{
-    position:absolute;
-    opacity:0;
-    transform:scale(.82);
+    position:absolute; opacity:0; transform:scale(.82);
     animation:enter var(--in,560ms) cubic-bezier(.34,1.56,.64,1) var(--in-delay,0ms) forwards;
   }
   @keyframes enter{ to{ opacity:1; transform:scale(1); } }
-
   .obj-rot{display:block;}
-
   .obj-drift{
     display:block;
     animation:drift var(--dur,5s) ease-in-out var(--delay,0s) infinite;
@@ -107,50 +76,48 @@
     0%,100%{ transform:translate3d(0,0,0) rotate(0deg); }
     50%    { transform:translate3d(var(--dx,4px),var(--dy,-9px),0) rotate(var(--dr,2deg)); }
   }
-
   .obj svg{display:block;}
-
-  /* Characters sit above the small props but below the text. */
   .figure{z-index:2;}
 
-  /* ============================================================
-     RESPONSIVE
-     Below 1200px the gutters are too narrow to hold a scatter without
-     the objects reaching the text. Rather than shrink them into an
-     unreadable smear, the field stops being a scatter and becomes a
-     grounded illustration band beneath the copy. M4 is upheld by
-     changing the layout, not by abandoning the composition.
-     ============================================================ */
+  /* Preply's sticker-label device, borrowed deliberately: it turns a mute
+     decorative object into a named service. Without these the field says
+     "school stuff"; with them it says UCAT, MMI, applications. */
+  .chip{
+    position:absolute; background:var(--ink); color:#fff;
+    font-family:'Inter',sans-serif; font-size:11px; font-weight:700;
+    letter-spacing:.01em; padding:5px 11px; border-radius:7px; white-space:nowrap;
+    box-shadow:0 10px 20px -10px rgba(22,33,62,.45);
+  }
+  .chip-lav{background:var(--lav-d);}
+
+  /* ---------- RESPONSIVE ---------- */
   @media (max-width:1199px){
     .anywhere{padding:84px 20px 0; display:flex; flex-direction:column;}
     .centre{order:1;}
     .field{
-      order:2;
-      position:static; display:flex; align-items:flex-end; justify-content:center;
-      gap:clamp(4px,3vw,40px); margin-top:52px;
+      order:2; position:static; display:flex; align-items:flex-end; justify-content:center;
+      gap:clamp(6px,3vw,44px); margin-top:56px;
     }
     .gutter{position:static; width:auto; display:contents;}
     .obj{position:static; animation:enter var(--in,560ms) cubic-bezier(.34,1.56,.64,1) var(--in-delay,0ms) forwards;}
-    /* Only the two characters and two supporting props survive the fold. */
+    /* What survives the fold is the MEDICAL signal, not the mascots alone. */
     .obj:not(.figure):not([data-keep]){display:none;}
     .obj[data-keep]{align-self:center;}
-    .figure svg{width:clamp(132px,25vw,210px);height:auto;}
-    .obj[data-keep] svg{width:clamp(34px,6vw,60px);height:auto;}
+    .obj .chip{display:none;}
+    .figure svg{width:clamp(150px,27vw,240px);height:auto;}
+    .obj[data-keep] svg{width:clamp(38px,7vw,68px);height:auto;}
   }
   @media (max-width:640px){
     .anywhere{padding:68px 18px 0;}
-    .field{gap:0;}
-    .obj[data-keep]{display:none;}
-    .figure svg{width:clamp(128px,38vw,176px);}
+    .field{gap:2px;}
+    .figure svg{width:clamp(136px,40vw,190px);}
+    .obj[data-keep] svg{width:34px;}
   }
 
-  /* ============================================================
-     M11 — reduced motion. Everything resolves to its rest state.
-     ============================================================ */
   @media (prefers-reduced-motion:reduce){
     .obj{opacity:1;transform:none;animation:none;}
     .obj-drift{animation:none;}
-    .btn-primary,.btn-outline,.btn-primary .arrow{transition:none;}
+    .btn-primary,.btn-primary .arrow{transition:none;}
   }
 </style>
 </head>
@@ -158,242 +125,183 @@
 
 <section class="anywhere" aria-labelledby="anywhere-title">
 
-  <!-- ==========================================================
-       SPRITE SHEET — every object and character defined once.
-       M1: each form = one flat base fill + one darker shadow fill.
-       No strokes, no gradients, no outlines anywhere in here.
-       ========================================================== -->
   <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
     <defs>
 
-      <!-- ---------- PROPS ---------- -->
+      <!-- ============ PROPS ============
+           Every prop now maps to a service MindMed actually sells. The
+           app-shaped phone from round 1 is gone: we have no app, and
+           "prepare anywhere" beside a phone reads as a promise of one. -->
 
-      <symbol id="p-book" viewBox="0 0 64 64">
-        <rect x="14" y="10" width="38" height="44" rx="5" fill="#5B7EBD"/>
-        <rect x="14" y="10" width="11" height="44" rx="5" fill="#3E5D97"/>
-        <rect x="31" y="21" width="16" height="3.4" rx="1.7" fill="#C4B3D8"/>
-        <rect x="31" y="29" width="11" height="3.4" rx="1.7" fill="#C4B3D8"/>
+      <!-- UCAT: a timed question card. Deliberately a card, not a device. -->
+      <symbol id="p-ucat" viewBox="0 0 72 72">
+        <rect x="8" y="10" width="56" height="52" rx="7" fill="#FFFFFF"/>
+        <rect x="36" y="10" width="28" height="52" rx="7" fill="#F3F5FA"/>
+        <rect x="16" y="20" width="30" height="4.5" rx="2.25" fill="#8CA6D6"/>
+        <rect x="16" y="30" width="22" height="4.5" rx="2.25" fill="#C4B3D8"/>
+        <rect x="16" y="40" width="26" height="4.5" rx="2.25" fill="#C4B3D8"/>
+        <circle cx="52" cy="46" r="13" fill="#5B7EBD"/>
+        <circle cx="52" cy="46" r="13" fill="#3E5D97" clip-path="inset(0 0 0 50%)"/>
+        <path d="M52 46V38" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round"/>
+        <path d="M52 46l6 4" stroke="#FFFFFF" stroke-width="3" stroke-linecap="round"/>
       </symbol>
 
-      <symbol id="p-flask" viewBox="0 0 64 64">
-        <path d="M27 9h10v17l11 21a7 7 0 0 1-6 10H22a7 7 0 0 1-6-10l11-21z" fill="#C4B3D8"/>
-        <path d="M32 9h5v17l11 21a7 7 0 0 1-6 10h-10z" fill="#A78FC0"/>
-        <path d="M21 39h22l5 8a7 7 0 0 1-6 10H22a7 7 0 0 1-6-10z" fill="#5B7EBD"/>
-        <path d="M32 39h11l5 8a7 7 0 0 1-6 10h-10z" fill="#3E5D97"/>
-        <rect x="24" y="5" width="16" height="6" rx="3" fill="#8CA6D6"/>
+      <!-- MMI: two station markers facing each other across a table. -->
+      <symbol id="p-mmi" viewBox="0 0 72 72">
+        <rect x="6" y="26" width="26" height="30" rx="6" fill="#8CA6D6"/>
+        <rect x="19" y="26" width="13" height="30" rx="6" fill="#5B7EBD"/>
+        <rect x="40" y="26" width="26" height="30" rx="6" fill="#C4B3D8"/>
+        <rect x="53" y="26" width="13" height="30" rx="6" fill="#A78FC0"/>
+        <circle cx="19" cy="16" r="8" fill="#3E5D97"/>
+        <circle cx="53" cy="16" r="8" fill="#8B70A8"/>
+        <rect x="4" y="56" width="64" height="7" rx="3.5" fill="#16213E"/>
       </symbol>
 
-      <symbol id="p-clipboard" viewBox="0 0 64 64">
-        <rect x="12" y="9" width="40" height="48" rx="6" fill="#8CA6D6"/>
-        <rect x="32" y="9" width="20" height="48" rx="6" fill="#5B7EBD"/>
-        <rect x="24" y="4" width="16" height="9" rx="4" fill="#16213E"/>
-        <path d="M21 27l4 4 7-8" fill="none" stroke="#16213E" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/>
-        <path d="M21 41l4 4 7-8" fill="none" stroke="#16213E" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"/>
-        <rect x="37" y="26" width="10" height="3.2" rx="1.6" fill="#F3F5FA"/>
-        <rect x="37" y="40" width="10" height="3.2" rx="1.6" fill="#F3F5FA"/>
+      <!-- Applications: a personal-statement page with a signature line. -->
+      <symbol id="p-application" viewBox="0 0 72 72">
+        <rect x="14" y="6" width="44" height="60" rx="6" fill="#FFFFFF"/>
+        <rect x="36" y="6" width="22" height="60" rx="6" fill="#F3F5FA"/>
+        <rect x="22" y="18" width="28" height="4" rx="2" fill="#5B7EBD"/>
+        <rect x="22" y="27" width="22" height="4" rx="2" fill="#C4B3D8"/>
+        <rect x="22" y="36" width="26" height="4" rx="2" fill="#C4B3D8"/>
+        <rect x="22" y="45" width="18" height="4" rx="2" fill="#C4B3D8"/>
+        <path d="M23 57c5-5 9 3 13-1s6-4 12-2" stroke="#8B70A8" stroke-width="3" fill="none" stroke-linecap="round"/>
       </symbol>
 
-      <symbol id="p-phone" viewBox="0 0 64 64">
-        <rect x="17" y="5" width="30" height="54" rx="8" fill="#16213E"/>
-        <rect x="32" y="5" width="15" height="54" rx="8" fill="#0E1729"/>
-        <rect x="21" y="11" width="22" height="42" rx="4" fill="#F3F5FA"/>
-        <circle cx="32" cy="30" r="10" fill="#C4B3D8"/>
-        <path d="M32 30V22" stroke="#8B70A8" stroke-width="3" stroke-linecap="round"/>
-        <path d="M32 30l6 4" stroke="#8B70A8" stroke-width="3" stroke-linecap="round"/>
+      <!-- A-Level science: conical flask. -->
+      <symbol id="p-flask" viewBox="0 0 72 72">
+        <path d="M30 10h12v18l13 24a7 7 0 0 1-6 11H23a7 7 0 0 1-6-11l13-24z" fill="#C4B3D8"/>
+        <path d="M36 10h6v18l13 24a7 7 0 0 1-6 11H36z" fill="#A78FC0"/>
+        <path d="M24 42h24l7 10a7 7 0 0 1-6 11H23a7 7 0 0 1-6-11z" fill="#5B7EBD"/>
+        <path d="M36 42h12l7 10a7 7 0 0 1-6 11H36z" fill="#3E5D97"/>
+        <rect x="27" y="6" width="18" height="6" rx="3" fill="#8CA6D6"/>
       </symbol>
 
-      <symbol id="p-cap" viewBox="0 0 64 64">
-        <path d="M32 13 60 26 32 39 4 26z" fill="#5B7EBD"/>
-        <path d="M32 13 60 26 32 39z" fill="#3E5D97"/>
-        <path d="M17 31v11c0 5 7 9 15 9s15-4 15-9V31l-15 7z" fill="#8CA6D6"/>
-        <path d="M32 38v13c8 0 15-4 15-9V31z" fill="#5B7EBD"/>
-        <rect x="57" y="26" width="4" height="17" rx="2" fill="#16213E"/>
+      <!-- Stethoscope: the plain medical signal, no label needed. -->
+      <symbol id="p-steth" viewBox="0 0 72 72">
+        <path d="M20 10v14a13 13 0 0 0 26 0V10" fill="none" stroke="#5B7EBD" stroke-width="5.5" stroke-linecap="round"/>
+        <path d="M33 37v7a12 12 0 0 0 24 0v-5" fill="none" stroke="#3E5D97" stroke-width="5.5" stroke-linecap="round"/>
+        <circle cx="33" cy="37" r="6.5" fill="#8CA6D6"/>
+        <circle cx="57" cy="34" r="8" fill="#16213E"/>
+        <circle cx="57" cy="34" r="3.8" fill="#5B7EBD"/>
+        <rect x="15" y="5" width="9" height="8" rx="4" fill="#16213E"/>
+        <rect x="42" y="5" width="9" height="8" rx="4" fill="#16213E"/>
       </symbol>
 
-      <!-- Brain echoes the MindMed logo: split down the middle,
-           one half pale, one half lavender. -->
-      <symbol id="p-brain" viewBox="0 0 64 64">
-        <path d="M32 9c-12 0-21 8-21 19 0 5 2 9 5 12-1 7 3 14 11 16v5h10v-5c8-2 12-9 11-16 3-3 5-7 5-12 0-11-9-19-21-19z" fill="#C4B3D8"/>
-        <path d="M32 9c12 0 21 8 21 19 0 5-2 9-5 12 1 7-3 14-11 16v5h-5z" fill="#A78FC0"/>
-        <path d="M32 11v50" stroke="#8B70A8" stroke-width="2.6" stroke-linecap="round"/>
-        <path d="M20 23c4-3 8-2 10 2M20 35c4-3 8-2 10 2M44 23c-4-3-8-2-10 2M44 35c-4-3-8-2-10 2" fill="none" stroke="#8B70A8" stroke-width="2.2" stroke-linecap="round"/>
+      <!-- Brain, echoing the MindMed logo's split. -->
+      <symbol id="p-brain" viewBox="0 0 72 72">
+        <path d="M36 10c-13 0-23 9-23 21 0 6 2 10 6 13-1 8 3 16 12 18v6h10v-6c9-2 13-10 12-18 4-3 6-7 6-13 0-12-10-21-23-21z" fill="#C4B3D8"/>
+        <path d="M36 10c13 0 23 9 23 21 0 6-2 10-6 13 1 8-3 16-12 18v6h-5z" fill="#A78FC0"/>
+        <path d="M36 12v56" stroke="#8B70A8" stroke-width="2.8" stroke-linecap="round"/>
+        <path d="M23 26c4-3 9-2 11 2M23 40c4-3 9-2 11 2M49 26c-4-3-9-2-11 2M49 40c-4-3-9-2-11 2" fill="none" stroke="#8B70A8" stroke-width="2.4" stroke-linecap="round"/>
       </symbol>
 
-      <symbol id="p-bubble" viewBox="0 0 64 64">
-        <path d="M12 14h40a6 6 0 0 1 6 6v20a6 6 0 0 1-6 6H30l-12 9v-9h-6a6 6 0 0 1-6-6V20a6 6 0 0 1 6-6z" fill="#8CA6D6"/>
-        <path d="M32 14h20a6 6 0 0 1 6 6v20a6 6 0 0 1-6 6H32z" fill="#5B7EBD"/>
-        <circle cx="22" cy="30" r="3.2" fill="#F3F5FA"/>
-        <circle cx="32" cy="30" r="3.2" fill="#F3F5FA"/>
-        <circle cx="42" cy="30" r="3.2" fill="#F3F5FA"/>
-      </symbol>
+      <!-- ============ CHARACTERS ============
+           Round 1 sat both figures cross-legged on the floor, which reads as
+           primary-school storytime for a 16-18 audience. Both are now upright
+           at a desk. Both have mouths. The stethoscope has moved off the
+           applicant (who would not wear one) and onto the tutor, who is a
+           medical student - which is what MindMed's tutors actually are. -->
 
-      <symbol id="p-steth" viewBox="0 0 64 64">
-        <path d="M18 8v13a12 12 0 0 0 24 0V8" fill="none" stroke="#5B7EBD" stroke-width="5" stroke-linecap="round"/>
-        <path d="M30 33v6a11 11 0 0 0 22 0v-4" fill="none" stroke="#3E5D97" stroke-width="5" stroke-linecap="round"/>
-        <circle cx="30" cy="33" r="6" fill="#8CA6D6"/>
-        <circle cx="52" cy="30" r="7" fill="#16213E"/>
-        <circle cx="52" cy="30" r="3.4" fill="#5B7EBD"/>
-        <rect x="14" y="4" width="8" height="7" rx="3.5" fill="#16213E"/>
-        <rect x="38" y="4" width="8" height="7" rx="3.5" fill="#16213E"/>
-      </symbol>
-
-      <symbol id="p-chart" viewBox="0 0 64 64">
-        <rect x="8" y="12" width="48" height="40" rx="6" fill="#F3F5FA"/>
-        <rect x="32" y="12" width="24" height="40" rx="6" fill="#E3E6F0"/>
-        <rect x="16" y="32" width="7" height="13" rx="3.5" fill="#C4B3D8"/>
-        <rect x="27" y="25" width="7" height="20" rx="3.5" fill="#8CA6D6"/>
-        <rect x="38" y="19" width="7" height="26" rx="3.5" fill="#5B7EBD"/>
-      </symbol>
-
-      <symbol id="p-pencil" viewBox="0 0 64 64">
-        <rect x="26" y="6" width="12" height="40" rx="3" fill="#A78FC0"/>
-        <rect x="32" y="6" width="6" height="40" rx="3" fill="#8B70A8"/>
-        <path d="M26 46h12l-6 11z" fill="#F0D2BB"/>
-        <path d="M32 46h6l-6 11z" fill="#DCB89E"/>
-        <path d="M30 53l2 4 2-4z" fill="#16213E"/>
-        <rect x="26" y="6" width="12" height="6" rx="3" fill="#5B7EBD"/>
-      </symbol>
-
-      <!-- ---------- CHARACTERS ----------
-           M2: no necks, capsule limbs, head ~1/3 of body, dot eyes only.
-           M3: each one is using a prop.
-      -->
-
-      <!-- Cross-legged, holding an open book up at chest height.
-           Draw order: legs → torso → head → hair → arms → book → hands,
-           so the arms and the prop both sit in front and the pose reads. -->
-      <symbol id="c-reader" viewBox="0 0 200 230">
-        <!-- crossed shins: two capsules forming an X -->
-        <rect x="42" y="180" width="116" height="27" rx="13.5" fill="#16213E" transform="rotate(-9 100 193)"/>
-        <rect x="42" y="180" width="116" height="27" rx="13.5" fill="#0E1729" transform="rotate(10 100 193)"/>
-        <!-- torso -->
-        <rect x="67" y="98" width="66" height="88" rx="29" fill="#5B7EBD"/>
-        <path d="M100 98h4c16 0 29 13 29 29v30c0 16-13 29-29 29h-4z" fill="#3E5D97"/>
-        <!-- head -->
-        <circle cx="100" cy="60" r="35" fill="#F0D2BB"/>
-        <path d="M100 25a35 35 0 0 1 0 70z" fill="#DCB89E"/>
-        <!-- hair: side-parted, sits on the crown -->
-        <path d="M100 22c-21 0-36 15-36 33 0 4 1 8 2 11 1-15 5-23 12-26 9 12 33 14 48 5 5 4 7 11 8 21 2-4 2-7 2-11 0-18-15-33-36-33z" fill="#16213E"/>
-        <path d="M100 22c21 0 36 15 36 33 0 4 0 7-2 11-1-10-3-17-8-21-7 4-16 6-26 5z" fill="#0E1729"/>
-        <!-- eyes -->
-        <circle cx="88" cy="66" r="3.7" fill="#16213E"/>
-        <circle cx="112" cy="66" r="3.7" fill="#16213E"/>
-        <!-- open book, held up and clearly readable -->
-        <g transform="rotate(-5 100 156)">
-          <path d="M58 130h42v52H66a8 8 0 0 1-8-8z" fill="#C4B3D8"/>
-          <path d="M142 130h-42v52h34a8 8 0 0 0 8-8z" fill="#A78FC0"/>
-          <path d="M100 130v52" stroke="#8B70A8" stroke-width="3"/>
-          <rect x="68" y="142" width="24" height="4" rx="2" fill="#F3F5FA"/>
-          <rect x="68" y="153" width="18" height="4" rx="2" fill="#F3F5FA"/>
-          <rect x="68" y="164" width="21" height="4" rx="2" fill="#F3F5FA"/>
-          <rect x="110" y="142" width="24" height="4" rx="2" fill="#F3F5FA"/>
-          <rect x="110" y="153" width="18" height="4" rx="2" fill="#F3F5FA"/>
-          <rect x="110" y="164" width="21" height="4" rx="2" fill="#F3F5FA"/>
+      <!-- APPLICANT: bust composition. Round 1 sat this figure cross-legged on
+           the floor (primary-school storytime); round 2's desk read as a thin
+           plank. A bust cropped at the chest reads adult, removes the leg and
+           desk failure points entirely, and keeps the prop at eye level. -->
+      <symbol id="c-applicant" viewBox="0 0 220 200">
+        <rect x="56" y="112" width="108" height="100" rx="42" fill="#5B7EBD"/>
+        <path d="M110 112h12c23 0 42 19 42 42v58h-54z" fill="#3E5D97"/>
+        <circle cx="110" cy="62" r="38" fill="#F0D2BB"/>
+        <path d="M110 24a38 38 0 0 1 0 76z" fill="#DCB89E"/>
+        <path d="M110 20c-22 0-39 15-39 35 0 5 1 9 2 12 1-15 6-24 14-27 9 12 35 14 51 4 5 4 8 12 8 23 2-4 3-8 3-12 0-20-17-35-39-35z" fill="#16213E"/>
+        <path d="M110 20c22 0 39 15 39 35 0 4-1 8-3 12 0-11-3-19-8-23-8 5-18 7-28 6z" fill="#0E1729"/>
+        <circle cx="97" cy="66" r="4" fill="#16213E"/>
+        <circle cx="123" cy="66" r="4" fill="#16213E"/>
+        <path d="M103 79c4 4 10 4 14 0" stroke="#16213E" stroke-width="3.2" fill="none" stroke-linecap="round"/>
+        <rect x="40" y="124" width="21" height="60" rx="10.5" fill="#3E5D97" transform="rotate(-22 50.5 154)"/>
+        <rect x="159" y="124" width="21" height="60" rx="10.5" fill="#3E5D97" transform="rotate(22 169.5 154)"/>
+        <g transform="rotate(-4 110 168)">
+          <rect x="70" y="140" width="80" height="58" rx="5" fill="#FFFFFF"/>
+          <rect x="110" y="140" width="40" height="58" rx="5" fill="#F3F5FA"/>
+          <rect x="80" y="152" width="38" height="4.4" rx="2.2" fill="#8CA6D6"/>
+          <rect x="80" y="163" width="28" height="4.4" rx="2.2" fill="#C4B3D8"/>
+          <rect x="80" y="174" width="34" height="4.4" rx="2.2" fill="#C4B3D8"/>
+          <rect x="80" y="185" width="24" height="4.4" rx="2.2" fill="#C4B3D8"/>
         </g>
-        <!-- arms drawn OVER the book, reaching down to grip its outer edges,
-             so the limbs stay visible and the pose reads as holding -->
-        <rect x="46" y="108" width="19" height="56" rx="9.5" fill="#3E5D97" transform="rotate(-28 55.5 136)"/>
-        <rect x="135" y="108" width="19" height="56" rx="9.5" fill="#3E5D97" transform="rotate(28 144.5 136)"/>
-        <!-- hands gripping the outer edges of the book -->
-        <circle cx="61" cy="158" r="11" fill="#F0D2BB"/>
-        <circle cx="139" cy="154" r="11" fill="#DCB89E"/>
+        <circle cx="74" cy="166" r="12" fill="#F0D2BB"/>
+        <circle cx="146" cy="162" r="12" fill="#DCB89E"/>
       </symbol>
 
-      <!-- Kneeling tutor, stethoscope round the neck, holding a clipboard up
-           in one hand and gesturing with the other — mid-explanation. -->
-      <symbol id="c-mentor" viewBox="0 0 200 230">
-        <!-- tucked legs -->
-        <path d="M50 202c1-16 22-27 50-27s49 11 50 27c0 6-6 8-14 8H64c-8 0-14-2-14-8z" fill="#3E5D97"/>
-        <path d="M100 175c28 0 49 11 50 27 0 6-6 8-14 8h-36z" fill="#2F4877"/>
-        <!-- torso -->
-        <rect x="68" y="96" width="64" height="86" rx="28" fill="#A78FC0"/>
-        <path d="M100 96h4c15 0 28 13 28 28v30c0 15-13 28-28 28h-4z" fill="#8B70A8"/>
-        <!-- head -->
-        <circle cx="100" cy="58" r="35" fill="#C98D68"/>
-        <path d="M100 23a35 35 0 0 1 0 70z" fill="#B0764F"/>
-        <!-- hair: short crop -->
-        <path d="M100 20c-22 0-37 14-37 32 0 4 0 7 2 10 2-12 8-18 16-20 10 7 29 8 42 1 6 3 10 8 12 19 1-3 2-6 2-10 0-18-15-32-37-32z" fill="#3A2A22"/>
-        <path d="M100 20c22 0 37 14 37 32 0 4-1 7-2 10-2-11-6-16-12-19-7 4-15 6-23 6z" fill="#2A1D17"/>
-        <!-- eyes -->
-        <circle cx="88" cy="64" r="3.7" fill="#16213E"/>
-        <circle cx="112" cy="64" r="3.7" fill="#16213E"/>
-        <!-- stethoscope worn round the neck -->
-        <path d="M79 96c0 19 9 31 21 31s21-12 21-31" fill="none" stroke="#16213E" stroke-width="6" stroke-linecap="round"/>
-        <circle cx="121" cy="129" r="9" fill="#16213E"/>
-        <circle cx="121" cy="129" r="4.2" fill="#5B7EBD"/>
-        <!-- left arm down and out, carrying the clipboard at its side -->
-        <rect x="48" y="110" width="19" height="58" rx="9.5" fill="#8B70A8" transform="rotate(-22 57.5 139)"/>
-        <!-- right arm raised, open palm — mid-explanation -->
-        <rect x="133" y="94" width="19" height="56" rx="9.5" fill="#8B70A8" transform="rotate(30 142.5 122)"/>
-        <!-- clipboard carried at the side, small enough to read as a prop -->
-        <g transform="rotate(-13 42 172)">
-          <rect x="22" y="146" width="40" height="50" rx="6" fill="#8CA6D6"/>
-          <rect x="42" y="146" width="20" height="50" rx="6" fill="#5B7EBD"/>
-          <rect x="34" y="141" width="16" height="8" rx="4" fill="#16213E"/>
-          <path d="M29 163l3.4 3.4 6-6.8" fill="none" stroke="#16213E" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-          <path d="M29 179l3.4 3.4 6-6.8" fill="none" stroke="#16213E" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-          <rect x="45" y="162" width="12" height="3.4" rx="1.7" fill="#F3F5FA"/>
-          <rect x="45" y="178" width="12" height="3.4" rx="1.7" fill="#F3F5FA"/>
+      <!-- TUTOR: a medical student, which is what MindMed's tutors actually
+           are. The stethoscope moved here from the applicant, who would not
+           wear one. Earpieces terminate at the head so it no longer floats as
+           a necklace, and the raised forearm overlaps its hand so there is no
+           gap between sleeve and palm. -->
+      <symbol id="c-tutor" viewBox="0 0 220 200">
+        <rect x="56" y="110" width="108" height="102" rx="42" fill="#A78FC0"/>
+        <path d="M110 110h12c23 0 42 19 42 42v60h-54z" fill="#8B70A8"/>
+        <circle cx="110" cy="60" r="38" fill="#C98D68"/>
+        <path d="M110 22a38 38 0 0 1 0 76z" fill="#B0764F"/>
+        <path d="M110 18c-23 0-40 14-40 34 0 4 1 8 2 11 3-13 9-20 17-22 11 8 31 9 45 1 7 3 10 9 12 21 1-3 2-7 2-11 0-20-15-34-38-34z" fill="#3A2A22"/>
+        <path d="M110 18c23 0 38 14 38 34 0 4-1 8-2 11-2-12-5-18-12-21-8 4-16 6-24 6z" fill="#2A1D17"/>
+        <circle cx="97" cy="64" r="4" fill="#16213E"/>
+        <circle cx="123" cy="64" r="4" fill="#16213E"/>
+        <path d="M103 77c4 4 10 4 14 0" stroke="#16213E" stroke-width="3.2" fill="none" stroke-linecap="round"/>
+        <path d="M92 96c0 22 8 36 18 36s18-14 18-36" fill="none" stroke="#16213E" stroke-width="6" stroke-linecap="round"/>
+        <circle cx="92" cy="94" r="4.6" fill="#16213E"/>
+        <circle cx="128" cy="94" r="4.6" fill="#16213E"/>
+        <path d="M128 132v10a11 11 0 0 0 22 0" fill="none" stroke="#16213E" stroke-width="5.5" stroke-linecap="round"/>
+        <circle cx="150" cy="146" r="9" fill="#16213E"/>
+        <circle cx="150" cy="146" r="4" fill="#5B7EBD"/>
+        <rect x="38" y="122" width="21" height="60" rx="10.5" fill="#8B70A8" transform="rotate(-20 48.5 152)"/>
+        <rect x="158" y="76" width="21" height="62" rx="10.5" fill="#8B70A8" transform="rotate(32 168.5 107)"/>
+        <g transform="rotate(-8 76 168)">
+          <rect x="44" y="140" width="60" height="66" rx="6" fill="#8CA6D6"/>
+          <rect x="74" y="140" width="30" height="66" rx="6" fill="#5B7EBD"/>
+          <rect x="62" y="134" width="24" height="10" rx="5" fill="#16213E"/>
+          <path d="M53 160l4.5 4.5 8-9" fill="none" stroke="#16213E" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M53 182l4.5 4.5 8-9" fill="none" stroke="#16213E" stroke-width="3.6" stroke-linecap="round" stroke-linejoin="round"/>
+          <rect x="78" y="158" width="18" height="4" rx="2" fill="#F3F5FA"/>
+          <rect x="78" y="180" width="18" height="4" rx="2" fill="#F3F5FA"/>
         </g>
-        <!-- hands: one on the clipboard, one raised open -->
-        <circle cx="46" cy="166" r="11" fill="#C98D68"/>
-        <circle cx="158" cy="106" r="12" fill="#B0764F"/>
+        <circle cx="66" cy="164" r="12" fill="#C98D68"/>
+        <circle cx="186" cy="86" r="12.5" fill="#B0764F"/>
       </symbol>
 
     </defs>
   </svg>
 
-  <!-- ==========================================================
-       THE FIELD — objects live in the outer thirds only (M4).
-       Rotations span -41deg..+38deg and never repeat within 15deg
-       of a neighbour; scale spans 46px..104px, >2x (M5).
-       Drift periods are non-harmonic (M9): 3.1 3.7 4.3 4.7 5.3
-       5.9 6.1 6.7 7.0 — no two share a common multiple nearby.
-       ========================================================== -->
   <div class="field" aria-hidden="true">
 
-    <!-- ---- LEFT GUTTER — all offsets are % of the gutter, not the page ---- -->
+    <!-- ---- LEFT GUTTER ---- -->
     <div class="gutter gutter-l">
 
-      <div class="obj" style="left:14%; top:11%; --in-delay:60ms;">
-        <span class="obj-rot" style="transform:rotate(-17deg)">
+      <div class="obj" style="left:8%; top:9%; --in-delay:60ms;">
+        <span class="obj-rot" style="transform:rotate(-14deg)">
           <span class="obj-drift" style="--dur:5.3s;--delay:.0s;--dx:5px;--dy:-10px;--dr:2.4deg;">
-            <svg width="82" height="82"><use href="#p-book"/></svg>
+            <svg width="92" height="92"><use href="#p-ucat"/></svg>
           </span></span>
+        <span class="chip" style="left:2px; bottom:-14px; transform:rotate(-3deg);">UCAT</span>
       </div>
 
-      <div class="obj" data-keep style="left:54%; top:30%; --in-delay:170ms;">
-        <span class="obj-rot" style="transform:rotate(24deg)">
-          <span class="obj-drift" style="--dur:3.7s;--delay:.4s;--dx:-6px;--dy:-7px;--dr:-3deg;">
-            <svg width="54" height="54"><use href="#p-brain"/></svg>
-          </span></span>
-      </div>
-
-      <div class="obj" style="left:3%; top:47%; --in-delay:120ms;">
-        <span class="obj-rot" style="transform:rotate(-38deg)">
+      <div class="obj" data-keep style="left:6%; top:44%; --in-delay:120ms;">
+        <span class="obj-rot" style="transform:rotate(-33deg)">
           <span class="obj-drift" style="--dur:6.7s;--delay:.9s;--dx:7px;--dy:8px;--dr:3.2deg;">
-            <svg width="66" height="66"><use href="#p-flask"/></svg>
+            <svg width="74" height="74"><use href="#p-flask"/></svg>
+          </span></span>
+        <span class="chip chip-lav" style="left:-8px; bottom:-16px; transform:rotate(3deg);">A-Level science</span>
+      </div>
+
+      <div class="obj" style="left:58%; top:26%; --in-delay:300ms;">
+        <span class="obj-rot" style="transform:rotate(22deg)">
+          <span class="obj-drift" style="--dur:3.7s;--delay:.4s;--dx:-6px;--dy:-7px;--dr:-3deg;">
+            <svg width="52" height="52"><use href="#p-brain"/></svg>
           </span></span>
       </div>
 
-      <div class="obj" style="left:62%; top:61%; --in-delay:300ms;">
-        <span class="obj-rot" style="transform:rotate(9deg)">
-          <span class="obj-drift" style="--dur:4.3s;--delay:.2s;--dx:-4px;--dy:-9px;--dr:2deg;">
-            <svg width="48" height="48"><use href="#p-pencil"/></svg>
-          </span></span>
-      </div>
-
-      <div class="obj" style="left:58%; top:6%; --in-delay:380ms;">
-        <span class="obj-rot" style="transform:rotate(33deg)">
-          <span class="obj-drift" style="--dur:5.9s;--delay:1.1s;--dx:5px;--dy:7px;--dr:-2.6deg;">
-            <svg width="46" height="46"><use href="#p-cap"/></svg>
-          </span></span>
-      </div>
-
-      <div class="obj figure" style="left:6%; bottom:0; --in-delay:220ms;">
-        <span class="obj-rot" style="transform:rotate(-4deg)">
-          <span class="obj-drift" style="--dur:7.0s;--delay:.6s;--dx:0px;--dy:-6px;--dr:.8deg;">
-            <svg width="196" height="225"><use href="#c-reader"/></svg>
+      <div class="obj figure" style="left:0; bottom:0; --in-delay:220ms;">
+        <span class="obj-rot" style="transform:rotate(-2deg)">
+          <span class="obj-drift" style="--dur:7.0s;--delay:.6s;--dx:0px;--dy:-6px;--dr:.7deg;">
+            <svg width="238" height="216"><use href="#c-applicant"/></svg>
           </span></span>
       </div>
 
@@ -402,45 +310,34 @@
     <!-- ---- RIGHT GUTTER ---- -->
     <div class="gutter gutter-r">
 
-      <div class="obj" style="right:12%; top:9%; --in-delay:90ms;">
-        <span class="obj-rot" style="transform:rotate(21deg)">
+      <div class="obj" style="right:8%; top:8%; --in-delay:90ms;">
+        <span class="obj-rot" style="transform:rotate(17deg)">
           <span class="obj-drift" style="--dur:4.7s;--delay:.3s;--dx:-6px;--dy:-9px;--dr:-2.8deg;">
-            <svg width="76" height="76"><use href="#p-phone"/></svg>
+            <svg width="88" height="88"><use href="#p-mmi"/></svg>
           </span></span>
+        <span class="chip" style="right:-6px; bottom:-15px; transform:rotate(3deg);">MMI &amp; interviews</span>
       </div>
 
-      <div class="obj" data-keep style="right:52%; top:26%; --in-delay:200ms;">
-        <span class="obj-rot" style="transform:rotate(-29deg)">
-          <span class="obj-drift" style="--dur:6.1s;--delay:.7s;--dx:6px;--dy:-6px;--dr:3deg;">
-            <svg width="58" height="58"><use href="#p-bubble"/></svg>
-          </span></span>
-      </div>
 
-      <div class="obj" style="right:2%; top:45%; --in-delay:150ms;">
-        <span class="obj-rot" style="transform:rotate(12deg)">
+      <div class="obj" data-keep style="right:5%; top:56%; --in-delay:150ms;">
+        <span class="obj-rot" style="transform:rotate(10deg)">
           <span class="obj-drift" style="--dur:3.1s;--delay:.0s;--dx:-5px;--dy:8px;--dr:-2.2deg;">
-            <svg width="88" height="88"><use href="#p-steth"/></svg>
+            <svg width="86" height="86"><use href="#p-steth"/></svg>
           </span></span>
       </div>
 
-      <div class="obj" style="right:56%; top:63%; --in-delay:340ms;">
-        <span class="obj-rot" style="transform:rotate(-41deg)">
-          <span class="obj-drift" style="--dur:5.3s;--delay:1.3s;--dx:4px;--dy:-8px;--dr:2.6deg;">
-            <svg width="52" height="52"><use href="#p-clipboard"/></svg>
+      <div class="obj" style="right:44%; top:38%; --in-delay:340ms;">
+        <span class="obj-rot" style="transform:rotate(-38deg)">
+          <span class="obj-drift" style="--dur:5.9s;--delay:1.3s;--dx:4px;--dy:-8px;--dr:2.6deg;">
+            <svg width="62" height="62"><use href="#p-application"/></svg>
           </span></span>
+        <span class="chip" style="left:-18px; bottom:-15px; transform:rotate(-4deg);">Applications</span>
       </div>
 
-      <div class="obj" style="right:44%; top:4%; --in-delay:410ms;">
-        <span class="obj-rot" style="transform:rotate(-8deg)">
-          <span class="obj-drift" style="--dur:4.3s;--delay:.85s;--dx:-4px;--dy:9px;--dr:2.1deg;">
-            <svg width="104" height="104"><use href="#p-chart"/></svg>
-          </span></span>
-      </div>
-
-      <div class="obj figure" style="right:4%; bottom:0; --in-delay:260ms;">
-        <span class="obj-rot" style="transform:rotate(5deg)">
-          <span class="obj-drift" style="--dur:6.1s;--delay:.15s;--dx:0px;--dy:-7px;--dr:-.9deg;">
-            <svg width="200" height="230"><use href="#c-mentor"/></svg>
+      <div class="obj figure" style="right:0; bottom:0; --in-delay:260ms;">
+        <span class="obj-rot" style="transform:rotate(2deg)">
+          <span class="obj-drift" style="--dur:6.1s;--delay:.15s;--dx:0px;--dy:-7px;--dr:-.8deg;">
+            <svg width="238" height="216"><use href="#c-tutor"/></svg>
           </span></span>
       </div>
 
@@ -448,14 +345,15 @@
 
   </div>
 
-  <!-- ========================================================== -->
   <div class="centre">
-    <p class="eyebrow">ONLINE OR IN PERSON</p>
-    <h2 class="headline" id="anywhere-title">Prepare anywhere,<br>around everything else.</h2>
-    <p class="sub">Sessions run online or in person, scheduled around school, revision and everything else you are already juggling.</p>
+    <p class="eyebrow">UK MEDICAL SCHOOL ADMISSIONS</p>
+    <h2 class="headline" id="anywhere-title">Prepare for medicine,<br>around everything else.</h2>
+    <p class="sub">Tutored by medical students and graduates who have been through the same admissions process. Sessions run online or in person, scheduled around school and revision.</p>
+    <p class="services">
+      <span>UCAT</span><i>·</i><span>MMI &amp; INTERVIEWS</span><i>·</i><span>APPLICATIONS</span><i>·</i><span>GCSE &amp; A-LEVEL SCIENCE</span>
+    </p>
     <div class="cta-row">
       <a href="get-started.html" class="btn-primary">Start Your Journey <span class="arrow">&rarr;</span></a>
-      <a href="contact.html" class="btn-outline">Book a Session</a>
     </div>
   </div>
 
