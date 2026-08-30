@@ -166,6 +166,7 @@
       transition:opacity 800ms var(--ease), transform 800ms var(--ease), filter 800ms var(--ease);}
   .rv.rv-l{transform:translateX(-56px);}
   .rv.rv-r{transform:translateX(56px);}
+  .rv.rv-3d{transform:rotateY(-32deg) rotateX(10deg) translateZ(-90px);}
   .rv.in{opacity:1; transform:none; filter:none;}
 
   /* ---------- Hero word rotator ----------
@@ -195,16 +196,54 @@
     100% {opacity:0; transform:translateY(-115%);}
   }
 
-  /* ---------- Video slot ---------- */
-  .videoslot{
-    aspect-ratio:16/9; border-radius:20px; background:var(--paper);
-    border:1px dashed var(--bone); display:grid; place-items:center; text-align:center;
+  /* ---------- Hero review stack ----------
+     The 3D turn needs perspective on the container, not the card, so all three
+     share one vanishing point and read as a single deck rather than three
+     independently skewed rectangles. */
+  .rev-stack{perspective:1400px; display:grid; gap:16px;}
+
+  .rev-card{
+    position:relative; display:block; text-decoration:none; color:inherit;
+    background:var(--paper); border:1px solid var(--bone); border-radius:20px;
+    padding:24px;
+    transform:rotate(var(--tilt,0deg));
+    transition:
+      transform 300ms var(--ease),
+      border-color 300ms ease,
+      background-color 300ms ease;
   }
-  .videoslot-inner{padding:24px;}
-  .play{
-    display:grid; place-items:center; width:64px; height:64px; margin:0 auto;
-    border-radius:999px; background:var(--violet); padding-left:4px;
-    box-shadow:var(--shadow-card);
+
+  /* The shadow is a pseudo element, not box-shadow on the card. Animating
+     box-shadow repaints every frame; animating a layer's opacity does not. */
+  .rev-card::after{
+    content:''; position:absolute; left:6%; right:6%; bottom:-14px; height:26px;
+    border-radius:999px; background:rgba(107,75,168,.30); filter:blur(14px);
+    opacity:.5; z-index:-1;
+    transition:opacity 300ms ease, transform 300ms var(--ease);
+  }
+
+  .rev-quote{margin:12px 0 0; font-size:15px; line-height:23px; color:var(--stone);}
+  .rev-by{margin:16px 0 0; font-size:13px; font-weight:700; color:var(--ink);}
+  .rev-by span{font-weight:500; color:var(--ash);}
+  .rev-all{margin:8px 0 0; text-align:right; font-size:14px; font-weight:600;}
+  .rev-all a{color:var(--violet); text-decoration:none;}
+  .rev-all a:hover{text-decoration:underline;}
+
+  /* Vibrant on hover, still on palette: violet border, the wash as a tint, a
+     lift, and a deeper shadow. Gated so a tap on touch does not latch it. */
+  @media (hover:hover) and (pointer:fine){
+    .rev-card[data-href]{cursor:pointer;}
+    .rev-card[data-href]:hover{
+      transform:rotate(var(--tilt,0deg)) translateY(-4px) scale(1.015);
+      border-color:var(--violet);
+      background-color:var(--violet-wash);
+    }
+    .rev-card[data-href]:hover::after{opacity:1; transform:translateY(4px) scaleX(1.04);}
+  }
+  .rev-card[data-href]:active{transform:rotate(var(--tilt,0deg)) scale(.985);}
+  .rev-card[data-href]:focus-visible{
+    outline:2px solid var(--violet); outline-offset:3px;
+    border-color:var(--violet); background-color:var(--violet-wash);
   }
 
   /* ---------- University wordmarks ---------- */
@@ -267,7 +306,10 @@
   }
   @media (prefers-reduced-motion:reduce){
     html{scroll-behavior:auto;}
-    .rv,.rv.rv-l,.rv.rv-r{opacity:1;transform:none;filter:none;transition:opacity 200ms linear;}
+    .rv,.rv.rv-l,.rv.rv-r,.rv.rv-3d{opacity:1;transform:none;filter:none;transition:opacity 200ms linear;}
+    .rev-card{transform:none;transition:border-color 200ms linear, background-color 200ms linear;}
+    .rev-card[data-href]:hover{transform:none;}
+    .rev-card::after{transition:opacity 200ms linear;}
     .rot > span{animation:none; opacity:0;}
     .rot > span:first-child{opacity:1;}
     .step{animation:none;}
@@ -367,25 +409,58 @@
       </div>
 
       <!--
-        VIDEO SLOT — drop the real video in here.
-        Replace this whole <div class="videoslot"> with either:
-          <video src="your-video.mp4" poster="poster.jpg" autoplay muted loop playsinline
-                 style="width:100%;border-radius:20px;display:block;"></video>
-        or an embed:
-          <iframe src="https://www.youtube.com/embed/ID" title="MindMed intro"
-                  allowfullscreen style="width:100%;aspect-ratio:16/9;border:0;border-radius:20px;"></iframe>
-        Keep the 16:9 ratio so the hero layout does not shift.
+        REVIEW STACK — the three cards are real Google reviews, quoted as whole
+        verbatim sentences. Full text for all four is in the Reviews section
+        further down, and in content.md.
+
+        The cards become clickable the moment you set GOOGLE_REVIEWS_URL in the
+        script at the bottom of this file. Until then they render as plain
+        cards, not as links pointing nowhere.
       -->
-      <div class="rv">
-        <div class="videoslot">
-          <div class="videoslot-inner">
-            <span class="play" aria-hidden="true">
-              <svg width="26" height="26" viewBox="0 0 24 24" fill="#FFFFFF"><path d="M8 5.5v13l11-6.5z"/></svg>
+      <div class="rv rev-stack" id="revstack">
+
+        <div class="rv rv-3d">
+          <div class="rev-card" style="--tilt:-1.6deg" data-google>
+            <span class="stars" aria-label="5 out of 5 stars">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg>
             </span>
-            <p style="margin:16px 0 0;font-size:14px;font-weight:600;color:var(--stone);">Video goes here</p>
-            <p style="margin:4px 0 0;font-size:12px;color:var(--ash);">16:9 &middot; replace the .videoslot block in index.html</p>
+            <p class="rev-quote">I would never have imagined securing 4/4 medicine offers so early.</p>
+            <p class="rev-by">Elsa Agyakwah <span>Google review</span></p>
           </div>
         </div>
+
+        <div class="rv rv-3d">
+          <div class="rev-card" style="--tilt:1.1deg" data-google>
+            <span class="stars" aria-label="5 out of 5 stars">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg>
+            </span>
+            <p class="rev-quote">Thanks to Haris, I walked into my interviews feeling prepared and ready to present my authentic self.</p>
+            <p class="rev-by">Ahmed Elbargesy <span>Google review</span></p>
+          </div>
+        </div>
+
+        <div class="rv rv-3d">
+          <div class="rev-card" style="--tilt:-0.6deg" data-google>
+            <span class="stars" aria-label="4 out of 5 stars">
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg>
+              <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg>
+            </span>
+            <p class="rev-quote">Mr Haris is very helpful and explains well and makes sure my daughter understands.</p>
+            <p class="rev-by">Parent <span>Google review</span></p>
+          </div>
+        </div>
+
+        <p class="rev-all" hidden><a href="#" data-google-all>Read all 4 reviews on Google <span aria-hidden="true">&rarr;</span></a></p>
       </div>
     </div>
   </section>
@@ -793,6 +868,47 @@
   var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   document.getElementById('yr').textContent = new Date().getFullYear();
+
+  /* ------------------------------------------------------------------
+     GOOGLE REVIEWS LINK — the one line to fill in.
+     Paste your public Google reviews URL between the quotes. The three hero
+     cards become clickable, and the "Read all 4 reviews" line appears.
+     Left empty, the cards stay plain and nothing points at a dead link.
+     ------------------------------------------------------------------ */
+  var GOOGLE_REVIEWS_URL = '';
+
+  /* Any link still pointing at "#" has no destination yet (legal pages,
+     socials). Rather than let a visitor click into nowhere, render them as
+     muted, non-interactive text until a real URL exists. Give the <a> an href
+     and it behaves normally again. */
+  document.querySelectorAll('a[href="#"]').forEach(function(a){
+    a.removeAttribute('href');
+    a.setAttribute('aria-disabled','true');
+    a.style.cursor = 'default';
+    a.style.opacity = '.55';
+  });
+
+  if (GOOGLE_REVIEWS_URL) {
+    document.querySelectorAll('[data-google]').forEach(function(card){
+      card.setAttribute('data-href','1');
+      card.setAttribute('role','link');
+      card.setAttribute('tabindex','0');
+      var who = (card.querySelector('.rev-by') || {}).textContent || 'this review';
+      card.setAttribute('aria-label', 'Read ' + who.trim() + ' on Google');
+      function go(){ window.open(GOOGLE_REVIEWS_URL, '_blank', 'noopener'); }
+      card.addEventListener('click', go);
+      card.addEventListener('keydown', function(e){
+        if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); go(); }
+      });
+    });
+    var all = document.querySelector('[data-google-all]');
+    if (all) {
+      all.href = GOOGLE_REVIEWS_URL;
+      all.target = '_blank';
+      all.rel = 'noopener';
+      all.closest('.rev-all').hidden = false;
+    }
+  }
 
   /* ---- Responsive grids (kept in JS so the markup stays token driven) ---- */
   function grid(id, cols){
