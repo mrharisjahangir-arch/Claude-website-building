@@ -157,10 +157,63 @@
   .sheet.open a:nth-child(4){transition-delay:250ms;}
   .sheet.open a:nth-child(5){transition-delay:300ms;}
 
-  /* ---------- Scroll reveal ---------- */
+  .sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;}
+
+  /* ---------- Scroll reveal ----------
+     Directional variants must be declared BEFORE .rv.in, since they share
+     specificity and the resolved state has to win. */
   .rv{opacity:0; transform:translateY(64px); filter:blur(12px);
       transition:opacity 800ms var(--ease), transform 800ms var(--ease), filter 800ms var(--ease);}
+  .rv.rv-l{transform:translateX(-56px);}
+  .rv.rv-r{transform:translateX(56px);}
   .rv.in{opacity:1; transform:none; filter:none;}
+
+  /* ---------- Hero word rotator ----------
+     Both rotators share this keyframe and the same per-index delay, so the
+     subject and outcome always swap on the same frame. The grid stacks all
+     four words in one cell, so the box is as wide as the longest word and
+     nothing reflows mid-cycle. */
+  .hline{display:block;}
+  .hstatic{
+    background:linear-gradient(90deg,#1D1B22,#666066);
+    -webkit-background-clip:text; background-clip:text; color:transparent;
+  }
+  .rot{
+    display:inline-grid; vertical-align:bottom; overflow:hidden;
+    padding-bottom:.14em; margin-bottom:-.14em; color:var(--violet);
+  }
+  .rot > span{
+    grid-area:1/1; opacity:0; white-space:nowrap;
+    animation:rotWord 14s var(--ease) infinite both;
+    animation-delay:calc(var(--i) * 3.5s);
+  }
+  @keyframes rotWord{
+    0%   {opacity:0; transform:translateY(115%);}
+    3%   {opacity:1; transform:translateY(0);}
+    22%  {opacity:1; transform:translateY(0);}
+    25%  {opacity:0; transform:translateY(-115%);}
+    100% {opacity:0; transform:translateY(-115%);}
+  }
+
+  /* ---------- Video slot ---------- */
+  .videoslot{
+    aspect-ratio:16/9; border-radius:20px; background:var(--paper);
+    border:1px dashed var(--bone); display:grid; place-items:center; text-align:center;
+  }
+  .videoslot-inner{padding:24px;}
+  .play{
+    display:grid; place-items:center; width:64px; height:64px; margin:0 auto;
+    border-radius:999px; background:var(--violet); padding-left:4px;
+    box-shadow:var(--shadow-card);
+  }
+
+  /* ---------- University wordmarks ---------- */
+  .unis{
+    list-style:none; margin:0; padding:0; display:flex; flex-wrap:wrap;
+    justify-content:center; align-items:center; gap:16px 40px;
+  }
+  .unis li{font-size:18px; font-weight:700; letter-spacing:-0.01em; color:var(--ink); opacity:.72;}
+  .unis li.more{font-size:14px; font-weight:500; color:var(--ash); opacity:1;}
 
   /* ---------- Tagline word reveal ---------- */
   .tag-word{color:rgba(29,27,34,.28); transition:color 600ms var(--ease);}
@@ -214,7 +267,9 @@
   }
   @media (prefers-reduced-motion:reduce){
     html{scroll-behavior:auto;}
-    .rv{opacity:1;transform:none;filter:none;transition:opacity 200ms linear;}
+    .rv,.rv.rv-l,.rv.rv-r{opacity:1;transform:none;filter:none;transition:opacity 200ms linear;}
+    .rot > span{animation:none; opacity:0;}
+    .rot > span:first-child{opacity:1;}
     .step{animation:none;}
     .btn,.card,.pick,.sheet a,.nav-island{transition:opacity 200ms linear, background-color 200ms linear;}
     .btn:hover,.card-lift:hover,.pick:hover{transform:none;}
@@ -264,10 +319,33 @@
     <div class="wrap" style="display:grid;gap:64px;align-items:center;" id="herogrid">
       <div>
         <p class="eyebrow rv">Kent and Medway MMI specialists</p>
-        <h1 class="rv measure" style="font-size:clamp(34px,4.4vw,48px);line-height:1.08;font-weight:700;
-             background:linear-gradient(90deg,#1D1B22,#666066);-webkit-background-clip:text;background-clip:text;color:transparent;">
-          Medical school admissions, taught by people who got in.
+
+        <!-- Two rotators on one clock. Both use the same 14s keyframe and the
+             same per-index delay, so the subject and the outcome always change
+             together and the sentence is readable at every moment. -->
+        <h1 class="rv" style="font-size:clamp(44px,6.6vw,76px);line-height:1.02;font-weight:700;letter-spacing:-0.03em;">
+          <span class="hline"><span class="hstatic">Turn hours of</span></span>
+          <span class="hline">
+            <span class="rot" aria-hidden="true">
+              <span style="--i:0">UCAT</span>
+              <span style="--i:1">MMIs</span>
+              <span style="--i:2">A Levels</span>
+              <span style="--i:3">drafting</span>
+            </span>
+          </span>
+          <span class="hline">
+            <span class="hstatic">into</span>
+            <span class="rot" aria-hidden="true">
+              <span style="--i:0">offers</span>
+              <span style="--i:1">confidence</span>
+              <span style="--i:2">top grades</span>
+              <span style="--i:3">interviews</span>
+            </span>
+          </span>
+          <!-- One static sentence for screen readers, since the rotation is decorative. -->
+          <span class="sr-only">Turn hours of UCAT, MMIs, A Levels and drafting into offers, confidence, top grades and interviews.</span>
         </h1>
+
         <p class="rv measure" style="margin:24px 0 0;font-size:18px;line-height:28px;color:var(--stone);">
           UCAT, interviews and applications, one to one with current UK medical students. Your first session is free.
         </p>
@@ -288,29 +366,25 @@
         </div>
       </div>
 
-      <!-- MMI circuit: geometric, one idea, Brilliant register -->
+      <!--
+        VIDEO SLOT — drop the real video in here.
+        Replace this whole <div class="videoslot"> with either:
+          <video src="your-video.mp4" poster="poster.jpg" autoplay muted loop playsinline
+                 style="width:100%;border-radius:20px;display:block;"></video>
+        or an embed:
+          <iframe src="https://www.youtube.com/embed/ID" title="MindMed intro"
+                  allowfullscreen style="width:100%;aspect-ratio:16/9;border:0;border-radius:20px;"></iframe>
+        Keep the 16:9 ratio so the hero layout does not shift.
+      -->
       <div class="rv">
-        <div class="card" style="padding:32px;box-shadow:var(--shadow-card);">
-          <p style="margin:0 0 24px;font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--ash);">A mock MMI circuit</p>
-          <svg viewBox="0 0 360 300" style="width:100%;height:auto;" role="img" aria-label="Diagram of an eight station MMI circuit with the ethics station highlighted">
-            <circle cx="180" cy="150" r="104" fill="none" stroke="#DFD7CE" stroke-width="1.5" stroke-dasharray="4 7"/>
-            <g font-size="10" font-weight="600" fill="#5C5661" text-anchor="middle">
-              <g><rect x="152" y="14" width="56" height="34" rx="10" fill="#FFFFFF" stroke="#DFD7CE"/><text x="180" y="35">Ethics</text></g>
-              <g><rect x="248" y="52" width="60" height="34" rx="10" fill="#FFFFFF" stroke="#DFD7CE"/><text x="278" y="73">Role play</text></g>
-              <g><rect x="272" y="132" width="70" height="34" rx="10" fill="#FFFFFF" stroke="#DFD7CE"/><text x="307" y="153">Motivation</text></g>
-              <g><rect x="248" y="214" width="60" height="34" rx="10" fill="#FFFFFF" stroke="#DFD7CE"/><text x="278" y="235">Teamwork</text></g>
-              <g><rect x="150" y="252" width="60" height="34" rx="10" fill="#FFFFFF" stroke="#DFD7CE"/><text x="180" y="273">Data</text></g>
-              <g><rect x="52" y="214" width="60" height="34" rx="10" fill="#FFFFFF" stroke="#DFD7CE"/><text x="82" y="235">Bad news</text></g>
-              <g><rect x="18" y="132" width="70" height="34" rx="10" fill="#FFFFFF" stroke="#DFD7CE"/><text x="53" y="153">NHS</text></g>
-              <g><rect x="52" y="52" width="60" height="34" rx="10" fill="#6B4BA8" stroke="#6B4BA8"/><text x="82" y="73" fill="#FFFFFF">Comms</text></g>
-            </g>
-            <circle cx="180" cy="150" r="34" fill="#EDE7F6"/>
-            <text x="180" y="147" font-size="20" font-weight="700" fill="#6B4BA8" text-anchor="middle">8</text>
-            <text x="180" y="163" font-size="9" font-weight="600" fill="#6B4BA8" text-anchor="middle">STATIONS</text>
-          </svg>
-          <p style="margin:24px 0 0;font-size:14px;line-height:20px;color:var(--stone);">
-            We run the circuit, you rotate through it, and you get written feedback on every station.
-          </p>
+        <div class="videoslot">
+          <div class="videoslot-inner">
+            <span class="play" aria-hidden="true">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="#FFFFFF"><path d="M8 5.5v13l11-6.5z"/></svg>
+            </span>
+            <p style="margin:16px 0 0;font-size:14px;font-weight:600;color:var(--stone);">Video goes here</p>
+            <p style="margin:4px 0 0;font-size:12px;color:var(--ash);">16:9 &middot; replace the .videoslot block in index.html</p>
+          </div>
         </div>
       </div>
     </div>
@@ -318,12 +392,67 @@
 
   <!-- ============ PROOF STRIP ============ -->
   <section style="border-block:1px solid var(--bone);background:var(--paper);">
-    <div class="wrap rv" style="padding:40px 24px;display:flex;gap:32px;flex-wrap:wrap;align-items:center;justify-content:space-between;">
-      <p style="margin:0;font-size:14px;font-weight:600;color:var(--stone);">
-        Students we have worked with have gone on to
+    <div class="wrap rv" style="padding:40px 24px;">
+      <p style="margin:0 0 24px;font-size:14px;font-weight:600;color:var(--stone);text-align:center;">
+        Our students now attend
       </p>
-      <div style="display:flex;gap:32px;flex-wrap:wrap;font-size:18px;font-weight:700;color:var(--ink);">
-        <span>Kent and Medway</span><span>Cambridge</span><span>Leicester</span>
+      <!--
+        Text wordmarks, not logo files. University logos are trademarked and we
+        do not hold the assets, so nothing here is a fabricated crest. To use the
+        real marks, obtain permission and swap each <span> for an <img>/<svg> at
+        the same height, keeping the grayscale treatment.
+      -->
+      <ul class="unis">
+        <li>Leicester Medical School</li>
+        <li>University of Birmingham</li>
+        <li>Cambridge</li>
+        <li>Kent and Medway</li>
+        <li class="more">and many more</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- ============ BENEFITS ============ -->
+  <section id="help" style="padding:96px 0;background:var(--paper);border-block:1px solid var(--bone);">
+    <div class="wrap">
+      <div class="rv measure" style="margin-bottom:48px;">
+        <p class="eyebrow">What we do</p>
+        <h2 style="font-size:36px;line-height:40px;font-weight:700;">Four things, done properly.</h2>
+      </div>
+      <div style="display:grid;gap:16px;" id="benefits">
+
+        <article class="card card-lift rv rv-l" style="background:var(--canvas);">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="#6B4BA8" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+            <circle cx="16" cy="17" r="11"/><path d="M16 17V11M16 17l4 3M12 3h8"/>
+          </svg>
+          <h3 style="margin:24px 0 0;font-size:20px;line-height:28px;font-weight:700;">UCAT under real pressure</h3>
+          <p style="margin:8px 0 0;font-size:16px;line-height:24px;color:var(--stone);">Section strategy and timed practice across all four sections, so the clock stops being the problem.</p>
+        </article>
+
+        <article class="card card-lift rv rv-r" style="background:var(--canvas);">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="#6B4BA8" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+            <path d="M27 19a3 3 0 0 1-3 3H10l-5 5V8a3 3 0 0 1 3-3h16a3 3 0 0 1 3 3z"/><path d="M11 12h10M11 16h6"/>
+          </svg>
+          <h3 style="margin:24px 0 0;font-size:20px;line-height:28px;font-weight:700;">Interviews and MMI</h3>
+          <p style="margin:8px 0 0;font-size:16px;line-height:24px;color:var(--stone);">Mock stations and panel practice with written feedback after each one. KMMS prepared specifically.</p>
+        </article>
+
+        <article class="card card-lift rv rv-l" style="background:var(--canvas);">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="#6B4BA8" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+            <path d="M8 4h12l6 6v18a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/><path d="M20 4v6h6M12 18h8M12 23h5"/>
+          </svg>
+          <h3 style="margin:24px 0 0;font-size:20px;line-height:28px;font-weight:700;">Applications that hold up</h3>
+          <p style="margin:8px 0 0;font-size:16px;line-height:24px;color:var(--stone);">Choosing universities strategically, and a personal statement that survives a real reading.</p>
+        </article>
+
+        <article class="card card-lift rv rv-r" style="background:var(--canvas);">
+          <svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="#6B4BA8" stroke-width="2" stroke-linecap="round" aria-hidden="true">
+            <path d="M4 11 16 5l12 6-12 6z"/><path d="M9 14v7c0 2 3 4 7 4s7-2 7-4v-7M28 11v8"/>
+          </svg>
+          <h3 style="margin:24px 0 0;font-size:20px;line-height:28px;font-weight:700;">GCSE and A Level science</h3>
+          <p style="margin:8px 0 0;font-size:16px;line-height:24px;color:var(--stone);">The grades the application rests on. Maths, Sciences and A Level Chemistry.</p>
+        </article>
+
       </div>
     </div>
   </section>
@@ -353,51 +482,6 @@
           <h3 style="font-size:20px;line-height:28px;font-weight:700;">Station by station</h3>
           <p style="margin:8px 0 0;font-size:16px;line-height:24px;color:var(--stone);">We rehearse the formats KMMS actually uses, under time, and debrief each one properly.</p>
         </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- ============ BENEFITS ============ -->
-  <section id="help" style="padding:96px 0;background:var(--paper);border-block:1px solid var(--bone);">
-    <div class="wrap">
-      <div class="rv measure" style="margin-bottom:48px;">
-        <p class="eyebrow">What we do</p>
-        <h2 style="font-size:36px;line-height:40px;font-weight:700;">Four things, done properly.</h2>
-      </div>
-      <div style="display:grid;gap:16px;" id="benefits">
-
-        <article class="card card-lift rv" style="background:var(--canvas);">
-          <svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="#6B4BA8" stroke-width="2" stroke-linecap="round" aria-hidden="true">
-            <circle cx="16" cy="17" r="11"/><path d="M16 17V11M16 17l4 3M12 3h8"/>
-          </svg>
-          <h3 style="margin:24px 0 0;font-size:20px;line-height:28px;font-weight:700;">UCAT under real pressure</h3>
-          <p style="margin:8px 0 0;font-size:16px;line-height:24px;color:var(--stone);">Section strategy and timed practice across all four sections, so the clock stops being the problem.</p>
-        </article>
-
-        <article class="card card-lift rv" style="background:var(--canvas);">
-          <svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="#6B4BA8" stroke-width="2" stroke-linecap="round" aria-hidden="true">
-            <path d="M27 19a3 3 0 0 1-3 3H10l-5 5V8a3 3 0 0 1 3-3h16a3 3 0 0 1 3 3z"/><path d="M11 12h10M11 16h6"/>
-          </svg>
-          <h3 style="margin:24px 0 0;font-size:20px;line-height:28px;font-weight:700;">Interviews and MMI</h3>
-          <p style="margin:8px 0 0;font-size:16px;line-height:24px;color:var(--stone);">Mock stations and panel practice with written feedback after each one. KMMS prepared specifically.</p>
-        </article>
-
-        <article class="card card-lift rv" style="background:var(--canvas);">
-          <svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="#6B4BA8" stroke-width="2" stroke-linecap="round" aria-hidden="true">
-            <path d="M8 4h12l6 6v18a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/><path d="M20 4v6h6M12 18h8M12 23h5"/>
-          </svg>
-          <h3 style="margin:24px 0 0;font-size:20px;line-height:28px;font-weight:700;">Applications that hold up</h3>
-          <p style="margin:8px 0 0;font-size:16px;line-height:24px;color:var(--stone);">Choosing universities strategically, and a personal statement that survives a real reading.</p>
-        </article>
-
-        <article class="card card-lift rv" style="background:var(--canvas);">
-          <svg width="32" height="32" viewBox="0 0 32 32" fill="none" stroke="#6B4BA8" stroke-width="2" stroke-linecap="round" aria-hidden="true">
-            <path d="M4 11 16 5l12 6-12 6z"/><path d="M9 14v7c0 2 3 4 7 4s7-2 7-4v-7M28 11v8"/>
-          </svg>
-          <h3 style="margin:24px 0 0;font-size:20px;line-height:28px;font-weight:700;">GCSE and A Level science</h3>
-          <p style="margin:8px 0 0;font-size:16px;line-height:24px;color:var(--stone);">The grades the application rests on. Maths, Sciences and A Level Chemistry.</p>
-        </article>
-
       </div>
     </div>
   </section>
