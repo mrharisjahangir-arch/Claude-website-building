@@ -183,6 +183,13 @@ in without a rebuild.
 
 ## 11. Build constraints
 
-Static HTML, Tailwind via CDN with an inline config identical on every page.
-No build step, no framework. Custom CSS in one `<style>` block per page.
-Illustrations inline as SVG so the site stays self-contained and fast.
+Static HTML. **No framework, no build step, and no CSS library.**
+
+Tailwind was dropped after the first build: the page is written against the
+custom properties above and never meaningfully used its classes, so loading the
+CDN meant a render blocking script and an external dependency for nothing. The
+type scale and radius values below still come from Tailwind's defaults, as the
+skill requires — they are simply expressed in plain CSS.
+
+One `<style>` block per page. Illustrations inline as SVG so the site stays
+self contained and fast. Only external request is the Manrope stylesheet.
