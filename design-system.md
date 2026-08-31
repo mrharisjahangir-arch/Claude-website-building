@@ -30,6 +30,12 @@ never white, and exactly one accent does all the interactive work.
 
 - **One accent.** `--violet` carries every button, link and active state.
   Introducing a second accent breaks the system.
+  - **Scoped exception: the hero heartbeat.** The ECG line behind the hero
+    (`#hero .hero-ecg`) uses a deliberate second colour, teal `#12B3A6`,
+    at the client's explicit request. It is confined to that one moving
+    line and its glow — never a control, never text, never used anywhere
+    else on the page. Every button and link stays violet, including the
+    one the beat pulses past.
 - **The logo blue (`#5B7EBD`) appears only inside illustrations**, never on a
   control. It is the one place a second colour enters, exactly as Harvest
   confines external colour to partner logos.

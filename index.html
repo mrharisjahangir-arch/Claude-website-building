@@ -164,16 +164,17 @@
   }
 
   /* ---------- Hero review deck ---------- */
-  .rev-stack{perspective:1400px; display:grid; gap:16px;}
+  .rev-stack{perspective:1400px; display:grid; align-content:end; gap:16px;}
   .rev-card{position:relative; display:block; text-decoration:none; color:inherit;
-    background:var(--paper); border:1px solid var(--bone); border-radius:20px; padding:24px;
+    background:var(--paper); border:1px solid var(--bone); border-radius:20px; padding:14px 18px;
     transform:rotate(var(--tilt,0deg));
     transition:transform 300ms var(--ease), border-color 300ms ease, background-color 300ms ease;}
   .rev-card::after{content:''; position:absolute; left:6%; right:6%; bottom:-14px; height:26px;
     border-radius:999px; background:rgba(107,75,168,.30); filter:blur(14px); opacity:.5; z-index:-1;
     transition:opacity 300ms ease, transform 300ms var(--ease);}
-  .rev-quote{margin:12px 0 0; font-size:15px; line-height:23px; color:var(--stone);}
-  .rev-by{margin:16px 0 0; font-size:13px; font-weight:700; color:var(--ink);}
+  .rev-card .stars svg{width:14px;height:14px;}
+  .rev-quote{margin:8px 0 0; font-size:14px; line-height:20px; color:var(--stone);}
+  .rev-by{margin:8px 0 0; font-size:12px; font-weight:700; color:var(--ink);}
   .rev-by span{font-weight:500; color:var(--ash);}
   .rev-all{margin:8px 0 0; text-align:right; font-size:14px; font-weight:600;}
   .rev-all a{color:var(--violet); text-decoration:none;}
@@ -185,6 +186,14 @@
   .rev-card[data-href]:active{transform:rotate(var(--tilt,0deg)) scale(.985);}
   .rev-card[data-href]:focus-visible{outline:2px solid var(--violet); outline-offset:3px; border-color:var(--violet); background-color:var(--violet-wash);}
   .stars{display:inline-flex; gap:2px;} .stars svg{width:18px;height:18px;fill:#E8A33D;}
+
+  /* ---------- Hero heartbeat ----------
+     A second, deliberate accent (teal) confined to this one moving line —
+     see design-system.md Colour §1 for the scoped exception. Reviews fall
+     onto the flatline on load; the final drop revives a looping ECG pulse
+     that pings the primary CTA as it sweeps past. Vanilla WAAPI + rAF, no
+     scroll listener, and it never starts under prefers-reduced-motion. */
+  .hero-ecg{position:absolute; left:0; top:0; width:100%; height:200px; pointer-events:none; z-index:0;}
 
   /* ---------- University ticker ----------
      The track holds the list twice. Translating exactly -50% lands the second
@@ -326,8 +335,32 @@
 <main id="main">
 
   <!-- ============ 1. HERO ============ -->
-  <section style="padding:160px 0 88px;" aria-labelledby="h1">
-    <div class="wrap split">
+  <section id="hero" style="position:relative;overflow:hidden;padding:160px 0 88px;" aria-labelledby="h1">
+    <div class="hero-ecg" id="heroEcg" aria-hidden="true">
+      <svg width="4800" height="200" viewBox="0 0 4800 200" fill="none" style="position:absolute;left:0;top:0;overflow:visible;">
+        <defs>
+          <linearGradient id="ecgFade" x1="0" y1="0" x2="1" y2="0">
+            <stop offset="0" stop-color="#fff" stop-opacity="0"/>
+            <stop offset="0.07" stop-color="#fff" stop-opacity="1"/>
+            <stop offset="0.13" stop-color="#fff" stop-opacity="1"/>
+            <stop offset="0.34" stop-color="#fff" stop-opacity="0.45"/>
+            <stop offset="0.62" stop-color="#fff" stop-opacity="0.14"/>
+            <stop offset="1" stop-color="#fff" stop-opacity="0"/>
+          </linearGradient>
+          <mask id="ecgMask" maskUnits="userSpaceOnUse" x="-2400" y="-300" width="9600" height="800">
+            <rect id="ecgMaskRect" x="0" y="-300" width="1200" height="800" fill="url(#ecgFade)"/>
+          </mask>
+        </defs>
+        <g mask="url(#ecgMask)"><g id="ecgTravel">
+          <g id="ecgScale" style="transform:scaleY(0);transform-origin:0px 120px;transform-box:view-box;">
+            <path id="ecgGlow" d="M0,120 h200 q15,-14 30,0 h20 l10,16 l14,-92 l14,92 l10,-16 h32 q25,-26 50,0 h220 h200 q15,-14 30,0 h20 l10,16 l14,-92 l14,92 l10,-16 h32 q25,-26 50,0 h220 h200 q15,-14 30,0 h20 l10,16 l14,-92 l14,92 l10,-16 h32 q25,-26 50,0 h220 h200 q15,-14 30,0 h20 l10,16 l14,-92 l14,92 l10,-16 h32 q25,-26 50,0 h220 h200 q15,-14 30,0 h20 l10,16 l14,-92 l14,92 l10,-16 h32 q25,-26 50,0 h220 h200 q15,-14 30,0 h20 l10,16 l14,-92 l14,92 l10,-16 h32 q25,-26 50,0 h220" stroke="#12B3A6" stroke-width="14" stroke-linecap="round" stroke-linejoin="round" opacity="0.22" style="filter:blur(9px);"/>
+            <path id="ecgWave" d="M0,120 h200 q15,-14 30,0 h20 l10,16 l14,-92 l14,92 l10,-16 h32 q25,-26 50,0 h220 h200 q15,-14 30,0 h20 l10,16 l14,-92 l14,92 l10,-16 h32 q25,-26 50,0 h220 h200 q15,-14 30,0 h20 l10,16 l14,-92 l14,92 l10,-16 h32 q25,-26 50,0 h220 h200 q15,-14 30,0 h20 l10,16 l14,-92 l14,92 l10,-16 h32 q25,-26 50,0 h220 h200 q15,-14 30,0 h20 l10,16 l14,-92 l14,92 l10,-16 h32 q25,-26 50,0 h220 h200 q15,-14 30,0 h20 l10,16 l14,-92 l14,92 l10,-16 h32 q25,-26 50,0 h220" stroke="#12B3A6" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/>
+          </g>
+        </g></g>
+        <line id="ecgFlat" x1="0" y1="120" x2="4800" y2="120" stroke="#DFD7CE" stroke-width="2.5" stroke-linecap="round"/>
+      </svg>
+    </div>
+    <div class="wrap split" style="position:relative;z-index:1;align-items:start;">
       <div>
         <p class="eyebrow rv">Kent and Medway MMI specialists</p>
         <h1 class="rv" id="h1" style="font-size:clamp(44px,6.6vw,76px);line-height:1.02;font-weight:700;letter-spacing:-0.03em;">
@@ -349,7 +382,7 @@
           Medical admissions and academic tutoring, with personalised support from your first session onwards. That first session is free.
         </p>
         <div class="rv" style="margin-top:32px;display:flex;gap:12px;flex-wrap:wrap;">
-          <a href="#start" class="btn btn-primary btn-lg">Book Your First Free Session <span class="arr">&rarr;</span></a>
+          <a href="#start" id="heroBookBtn" class="btn btn-primary btn-lg">Book Your First Free Session <span class="arr">&rarr;</span></a>
           <a href="#what" class="btn btn-ghost btn-lg">Explore our programmes</a>
         </div>
         <div class="rv" style="margin-top:28px;display:flex;align-items:center;gap:12px;flex-wrap:wrap;font-size:14px;color:var(--stone);">
@@ -361,22 +394,22 @@
       <!-- Real Google reviews, quoted as whole verbatim sentences. Full text in
            Real proof below and in content.md. The cards become clickable the
            moment GOOGLE_REVIEWS_URL is set at the bottom of this file. -->
-      <div class="rv rev-stack">
-        <div class="rv rv-3d"><div class="rev-card" style="--tilt:-1.6deg" data-google>
+      <div class="rev-stack" id="heroReviewStack">
+        <div class="rev-card" style="--tilt:-1.6deg" data-card data-tilt="-1.6" data-google>
           <span class="stars" aria-label="5 out of 5 stars"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg></span>
           <p class="rev-quote">I would never have imagined securing 4/4 medicine offers so early.</p>
           <p class="rev-by">Elsa Agyakwah <span>Google review</span></p>
-        </div></div>
-        <div class="rv rv-3d"><div class="rev-card" style="--tilt:1.1deg" data-google>
+        </div>
+        <div class="rev-card" style="--tilt:1.1deg" data-card data-tilt="1.1" data-google>
           <span class="stars" aria-label="5 out of 5 stars"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg></span>
           <p class="rev-quote">Thanks to Haris, I walked into my interviews feeling prepared and ready to present my authentic self.</p>
           <p class="rev-by">Ahmed Elbargesy <span>Google review</span></p>
-        </div></div>
-        <div class="rv rv-3d"><div class="rev-card" style="--tilt:-0.6deg" data-google>
+        </div>
+        <div class="rev-card" style="--tilt:-0.6deg" data-card data-tilt="-0.6" data-google>
           <span class="stars" aria-label="4 out of 5 stars"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2l2.9 6.3 6.9.8-5.1 4.7 1.4 6.8L12 17.3 5.9 20.6l1.4-6.8L2.2 9.1l6.9-.8z"/></svg></span>
           <p class="rev-quote">Mr Haris is very helpful and explains well and makes sure my daughter understands.</p>
           <p class="rev-by">Parent <span>Google review</span></p>
-        </div></div>
+        </div>
         <p class="rev-all" hidden><a href="#" data-google-all>Read all 4 reviews on Google <span aria-hidden="true">&rarr;</span></a></p>
       </div>
     </div>
@@ -865,6 +898,176 @@
     var all = document.querySelector('[data-google-all]');
     if (all){ all.href = GOOGLE_REVIEWS_URL; all.target='_blank'; all.rel='noopener'; all.closest('.rev-all').hidden = false; }
   }
+
+  /* ---- Hero heartbeat ----
+     ECG line behind the hero, right to left. The three review cards fall in
+     from above and land on the flatline (each impact quivers it); the final,
+     harder drop revives a looping pulse that pings the primary CTA as its
+     head sweeps past. Positions are measured as rect deltas against the
+     hero, re-measured after fonts load and on resize, same discipline as
+     the rest of this file. Never starts under prefers-reduced-motion. */
+  (function(){
+    var hero = document.getElementById('hero');
+    var btn = document.getElementById('heroBookBtn');
+    var stack = document.getElementById('heroReviewStack');
+    var ecg = document.getElementById('heroEcg');
+    if (!hero || !btn || !stack || !ecg) return;
+
+    var travel = document.getElementById('ecgTravel');
+    var scaleG = document.getElementById('ecgScale');
+    var wave = document.getElementById('ecgWave');
+    var glow = document.getElementById('ecgGlow');
+    var flat = document.getElementById('ecgFlat');
+    var maskRect = document.getElementById('ecgMaskRect');
+
+    var BEAT = '#12B3A6', CYCLE = 2.8;
+    var btnX = 0, stackX = 0, heroW = 0, alive = false, raf = null, t0 = 0, prevHead = null;
+
+    function rgba(a){
+      var n = parseInt(BEAT.slice(1), 16);
+      return 'rgba(' + ((n>>16)&255) + ',' + ((n>>8)&255) + ',' + (n&255) + ',' + a + ')';
+    }
+    function setHead(x){ maskRect.setAttribute('transform', 'translate(' + (x - 108) + ',0)'); }
+
+    // offsetTop/offsetLeft walk the layout box, not the rendered one, so
+    // these stay correct while the scroll-reveal's translateY is still
+    // mid-transition on the button's wrapper (getBoundingClientRect would
+    // read the animated position and mislocate the line while it settles).
+    function relTop(el, ancestor){ var y = 0, n = el; while (n && n !== ancestor) { y += n.offsetTop; n = n.offsetParent; } return y; }
+    function relLeft(el, ancestor){ var x = 0, n = el; while (n && n !== ancestor) { x += n.offsetLeft; n = n.offsetParent; } return x; }
+
+    function layout(){
+      stack.style.height = 'auto';
+      var btnTop = relTop(btn, hero);
+      var btnMid = btnTop + btn.offsetHeight / 2;
+      btnX = relLeft(btn, hero) + btn.offsetWidth / 2;
+      var stackTop = relTop(stack, hero);
+      var wide = window.matchMedia('(min-width:900px)').matches;
+      var lineY = btnMid;
+      if (wide) {
+        // Two columns: the button centre is the line, stack bottom-aligns to it.
+        stack.style.height = (btnMid - stackTop) + 'px';
+      } else {
+        // One column: the cards' landing wins; the button still pulses as
+        // the spike crosses its x.
+        lineY = stackTop + stack.scrollHeight;
+      }
+      stackX = relLeft(stack, hero) + stack.offsetWidth / 2;
+      heroW = hero.clientWidth;
+      var off = ((btnX - 274) % 600 + 600) % 600;
+      travel.setAttribute('transform', 'translate(' + (off - 600) + ',0)');
+      ecg.style.top = (lineY - 120) + 'px';
+      if (!alive) setHead(-2000);
+    }
+
+    function quiver(s){
+      if (alive) return;
+      setHead(stackX || 600);
+      scaleG.animate([
+        { transform: 'scaleY(0)' },
+        { transform: 'scaleY(' + s + ')', offset: 0.35 },
+        { transform: 'scaleY(' + (s * 0.4) + ')', offset: 0.6 },
+        { transform: 'scaleY(0)' }
+      ], { duration: 460, easing: 'cubic-bezier(.3,.8,.3,1)' });
+    }
+
+    function pulseButton(){
+      btn.animate([
+        { transform: 'scale(1)', boxShadow: 'rgba(29,27,34,0.18) 0px 1px 4px 0px, 0 0 0 0px ' + rgba(0.5) },
+        { transform: 'scale(1.045)', boxShadow: 'rgba(29,27,34,0.18) 0px 1px 4px 0px, 0 0 0 10px ' + rgba(0.18), offset: 0.35 },
+        { transform: 'scale(1)', boxShadow: 'rgba(29,27,34,0.18) 0px 1px 4px 0px, 0 0 0 22px ' + rgba(0) }
+      ], { duration: 620, easing: 'cubic-bezier(.2,.7,.3,1)' });
+    }
+
+    function revive(){
+      alive = true;
+      scaleG.animate([
+        { transform: 'scaleY(0)' },
+        { transform: 'scaleY(1.5)', offset: 0.3 },
+        { transform: 'scaleY(0.9)', offset: 0.62 },
+        { transform: 'scaleY(1)' }
+      ], { duration: 1000, easing: 'cubic-bezier(.2,.8,.25,1)', fill: 'forwards' });
+      scaleG.style.transform = 'scaleY(1)';
+      flat.animate([
+        { stroke: BEAT, strokeWidth: 7, opacity: 1 },
+        { stroke: BEAT, strokeWidth: 4, opacity: 1, offset: 0.25 },
+        { stroke: '#DFD7CE', strokeWidth: 2.5, opacity: 0.5 }
+      ], { duration: 900, easing: 'ease-out', fill: 'forwards' });
+      wave.animate([
+        { strokeWidth: 9, opacity: 1 },
+        { strokeWidth: 3.5, opacity: 1 }
+      ], { duration: 900, easing: 'ease-out' });
+      glow.animate([
+        { opacity: 0.85, strokeWidth: 26 },
+        { opacity: 0.22, strokeWidth: 14 }
+      ], { duration: 900, easing: 'ease-out' });
+
+      t0 = performance.now();
+      prevHead = null;
+      function loop(now){
+        var sweep = CYCLE * 0.78;
+        var cycle = Math.floor((now - t0) / 1000 / CYCLE);
+        var startX = cycle === 0 ? stackX + 130 : (heroW || 1200) + 220;
+        var endX = -1300;
+        var ph = ((now - t0) / 1000) % CYCLE;
+        var k = ph <= sweep ? ph / sweep : 1;
+        var head = startX + (endX - startX) * k;
+        setHead(head);
+        if (prevHead != null && prevHead >= btnX && head < btnX) pulseButton();
+        prevHead = head;
+        raf = requestAnimationFrame(loop);
+      }
+      raf = requestAnimationFrame(loop);
+    }
+
+    function play(){
+      alive = false;
+      if (raf) cancelAnimationFrame(raf);
+      scaleG.style.transform = 'scaleY(0)';
+      flat.style.opacity = '1';
+
+      var cards = Array.prototype.slice.call(stack.querySelectorAll('[data-card]')).reverse();
+      var step = 300, fall = 1050, impactAt = 720;
+      var last = cards.length - 1;
+
+      cards.forEach(function(el, i){
+        var t = parseFloat(el.getAttribute('data-tilt')) || 0;
+        if (i === last) {
+          // The revival drop: further, faster, lands hard and squashes —
+          // this impact is what fires the revive.
+          el.animate([
+            { transform: 'translateY(-1250px) rotate(' + (t * 4) + 'deg) scaleY(1.06)', opacity: 0, offset: 0, easing: 'cubic-bezier(.7,0,.9,.4)' },
+            { transform: 'translateY(0px) rotate(' + t + 'deg) scaleY(.88)', opacity: 1, offset: 0.62, easing: 'cubic-bezier(.2,0,.3,1)' },
+            { transform: 'translateY(-44px) rotate(' + t + 'deg) scaleY(1.05)', opacity: 1, offset: 0.78, easing: 'cubic-bezier(.6,0,.35,1)' },
+            { transform: 'translateY(0px) rotate(' + t + 'deg) scaleY(.96)', opacity: 1, offset: 0.9, easing: 'cubic-bezier(.3,0,.3,1)' },
+            { transform: 'translateY(0px) rotate(' + t + 'deg) scaleY(1)', opacity: 1, offset: 1 }
+          ], { duration: 780, delay: i * step + 180, fill: 'backwards' });
+          setTimeout(revive, i * step + 180 + 484);
+        } else {
+          el.animate([
+            { transform: 'translateY(-940px) rotate(' + (t * 3) + 'deg)', opacity: 0, offset: 0, easing: 'cubic-bezier(.55,0,.85,.35)' },
+            { transform: 'translateY(0px) rotate(' + t + 'deg)', opacity: 1, offset: 0.68, easing: 'cubic-bezier(.25,0,.35,1)' },
+            { transform: 'translateY(-26px) rotate(' + t + 'deg)', opacity: 1, offset: 0.84, easing: 'cubic-bezier(.6,0,.35,1)' },
+            { transform: 'translateY(0px) rotate(' + t + 'deg)', opacity: 1, offset: 1 }
+          ], { duration: fall, delay: i * step, fill: 'backwards' });
+          setTimeout(function(){ quiver(0.07 + i * 0.06); }, i * step + impactAt);
+        }
+      });
+    }
+
+    wave.setAttribute('stroke', BEAT);
+    glow.setAttribute('stroke', BEAT);
+    layout();
+    if (document.fonts && document.fonts.ready) document.fonts.ready.then(layout);
+    window.addEventListener('resize', layout);
+
+    if (reduce) {
+      scaleG.style.transform = 'scaleY(1)';
+      setHead(btnX || 400);
+    } else {
+      play();
+    }
+  })();
 
   /* ---- Responsive nav ---- */
   (function(){
