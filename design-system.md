@@ -4,8 +4,35 @@ The spec for the landing page redesign. Built against the `landing-page-design`
 skill, with structural cues from the Harvest style reference and the graphic
 register of Brilliant.
 
-**Locked decisions:** warm cream canvas · single violet accent · Manrope only ·
+**Locked decisions:** warm cream canvas · violet accent · Manrope only ·
 free trial session as the offer.
+
+> **Superseded in part.** The homepage now ships the client's own Claude Design
+> build, which keeps the cream canvas, the violet accent and Manrope, and adds a
+> deep navy (`#22303F`) for inverted sections, a teal (`#12B3A6`) used only in
+> the hero ECG line and the rotating CTA beams, and Newsreader as a serif for
+> body copy. §1 and §2 below record the original single-accent system; the
+> palette table immediately after this note is what the built page actually uses.
+
+## 0. Shipped palette
+
+| Token | Value | Role |
+|---|---|---|
+| Canvas | `#FBF8F4` | Page background. Warm cream |
+| Paper | `#FFFFFF` | Cards and light panels |
+| Navy | `#22303F` | Hero and inverted section backgrounds; body ink |
+| Slate | `#55647A` | Secondary body copy on light |
+| Mist | `#D5DCE5` | Body copy on navy |
+| Ash | `#8A94A3` | Captions and metadata |
+| Bone | `#DFD7CE` | Borders and hairline dividers |
+| Violet | `#6B4BA8` | Primary accent. CTAs, links, active states |
+| Violet deep | `#573C8A` | Accent hover |
+| Violet light | `#C9B3EE` / `#8E6FCF` | Accent on navy; highlight bar |
+| Violet wash | `#EDE7F6` | Tinted panels |
+| Teal | `#12B3A6` | Hero ECG trace and CTA beam only. Never on a control |
+| Star gold | `#E8A33D` | Review stars only |
+
+Typefaces: **Manrope** for everything structural, **Newsreader** for body prose.
 
 ---
 
@@ -192,4 +219,13 @@ type scale and radius values below still come from Tailwind's defaults, as the
 skill requires — they are simply expressed in plain CSS.
 
 One `<style>` block per page. Illustrations inline as SVG so the site stays
-self contained and fast. Only external request is the Manrope stylesheet.
+self contained and fast. Only external request is the Google Fonts stylesheet
+for Manrope and Newsreader.
+
+The homepage is generated from the client's Claude Design bundle: the design
+ships as a React template, and it is flattened to static HTML with the loops
+expanded, the reactive bindings resolved and the component's own scroll,
+accordion and toggle logic rewritten as plain DOM code. The result runs with no
+framework and no build step, exactly as this section requires. Re-running that
+conversion is a manual step, so **the built `index.html` is the source of
+truth** — edit it directly.

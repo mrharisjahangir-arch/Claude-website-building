@@ -7,13 +7,13 @@ invented. If a claim is not in this file, it does not go on the site.
 
 ## Google rating
 
-- **4.8** average, **4 reviews**, five star display.
-- Distribution visible in the summary: three at five stars, one at four stars.
+- **4.8** average, **6 reviews**, five star display.
+- Distribution: five at five stars, one at four stars.
 
 **The count is shown, not hidden.** 4.8 on its own, next to a five star graphic,
 implies a large sample. A parent who clicks through and finds four reviews feels
 misled, and that is a worse outcome than a small honest number. MindMed is young;
-four strong reviews averaging 4.8 is a fine thing to say out loud.
+six strong reviews averaging 4.8 is a fine thing to say out loud.
 
 **TODO:** public Google profile URL, so the rating links out and can be checked.
 
@@ -38,6 +38,20 @@ is fine. Converting it into a MindMed statistic is not.
 > how to communicate my passion for medicine effectively. His feedback was spot
 > on and always delivered with encouragement. Thanks to Haris, I walked into my
 > interviews feeling prepared and ready to present my authentic self.
+
+### Ali Yehia · 5 stars · A Level Biology
+> Amazing tutoring, I had lessons for A-level biology and the tutor helped me
+> understand the topics I was struggling to get my head around in such a simple
+> but well rounded way. The explanation of the eye's function in particular was
+> so well taught. Highly reccomend tutoring from here.
+
+Quoted verbatim, the reviewer's own spelling included.
+
+### رياضه abdul · 5 stars
+> Excellent tutors! He explains the lessons clearly, is patient and supportive,
+> and makes learning enjoyable. I highly recommend him.
+
+**TODO:** confirm how this reviewer's name should appear, as with رشا حيدر below.
 
 ### Alin Farah · 5 stars · 1 year ago
 > Highly recommend, the tutors here will go the extra mile to ensure you get the
@@ -64,6 +78,7 @@ Students have received places at:
 - **Kent and Medway Medical School (KMMS)**
 - **Cambridge**
 - **Leicester**
+- **University of Birmingham**
 
 Interviews mentioned in reviews: UCL, Barts.
 
@@ -109,6 +124,28 @@ primary CTA.
 **TODO:** length, online or in person, and what happens in it. The page currently
 says only "your first session is free", which is the most that is evidenced.
 Do not add a duration until confirmed.
+
+---
+
+## Supplied in the design, not yet sourced
+
+The KMMS section carries three figures that came in with the client's own design
+file rather than from this document:
+
+| Figure | Claim |
+|---|---|
+| ~1,500 | applications to KMMS each year |
+| 109 | places available |
+| 15:1 | applications per place |
+
+These are the only numbers on the page that are not a review, a school name or
+the Google rating. They are plausible for KMMS and they are the client's own,
+so they ship — but they are **admissions statistics about a named university**,
+which is exactly the kind of claim a prospective parent will check.
+
+**TODO:** confirm against a citable source (KMMS or UCAS admissions data) and
+add the cycle year they refer to, or remove them. A figure with no year attached
+goes stale silently.
 
 ---
 
