@@ -374,7 +374,7 @@
      * public to every visitor. Until it is set the form says so honestly instead
      * of pretending to have sent anything.
      */
-    var ENQUIRY_ENDPOINT = '';
+    var ENQUIRY_ENDPOINT = '/api/enquiry';
 
     var picks = Array.prototype.slice.call(form.querySelectorAll('.pick'));
     var next = form.querySelector('[data-next]');
@@ -424,7 +424,7 @@
       fetch(ENQUIRY_ENDPOINT, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ name: name, email: email, interests: interests })
+        body: JSON.stringify({ source: 'homepage', name: name, email: email, interests: interests })
       }).then(function (res) {
         if (!res.ok) throw new Error();
         open.hidden = true;

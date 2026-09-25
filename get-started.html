@@ -547,23 +547,19 @@
   /*
    * FORM SUBMISSION
    * ----------------
-   * submitEnquiry() is the single integration point for connecting this
-   * form to a real backend. Replace the body below with a fetch() call to
-   * your chosen provider (Jotform / Formspree / Supabase / HubSpot / your
-   * own API route) — nothing else in the form needs to change.
-   * Never put API keys or secrets in this file; call your own serverless
-   * endpoint and keep credentials there.
+   * submitEnquiry() is the single integration point for this form. It posts
+   * to /api/enquiry (api/enquiry.js), a Vercel function that adds the
+   * enquiry to the Notion database. Never put API keys or secrets in this
+   * file; the Notion token lives in Vercel's environment variables.
    */
   async function submitEnquiry(payload) {
-    // Example real integration:
-    // const res = await fetch('/api/enquiry', {
-    //   method: 'POST',
-    //   headers: { 'Content-Type': 'application/json' },
-    //   body: JSON.stringify(payload),
-    // });
-    // if (!res.ok) throw new Error('Submission failed');
-    // return res.json();
-    return new Promise((resolve) => setTimeout(() => resolve({ ok: true }), 1200));
+    const res = await fetch('/api/enquiry', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ ...payload, source: 'get-started' }),
+    });
+    if (!res.ok) throw new Error('Submission failed');
+    return res.json();
   }
 
   form.addEventListener('submit', async (e) => {
