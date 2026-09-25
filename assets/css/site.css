@@ -135,6 +135,7 @@ img { max-width: 100%; }
 .foot-list a:hover, .foot-social a:hover { color: var(--ink); }
 .foot-base { margin-top: 48px; padding-top: 24px; border-top: 1px solid var(--line); display: flex; gap: 24px; flex-wrap: wrap; justify-content: space-between; align-items: center; font-size: 14px; color: var(--ash); }
 .foot-social { display: flex; gap: 20px; }
+.indep { margin: 16px 0 0; font-size: 13px; line-height: 19px; color: var(--ash); max-width: 560px; }
 
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }

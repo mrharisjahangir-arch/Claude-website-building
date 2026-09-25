@@ -156,3 +156,25 @@ goes stale silently.
 - Success or offer rates
 - Accreditations or partnerships
 - Years in operation
+
+---
+
+## Added for the SEO pages (25 September 2026)
+
+The service pages, `/how-it-works/` and the five `/kmms/…/` question pages use only:
+
+- the reviews, tutors (Haris, Huzaifa), rating and FAQ answers already on the homepage
+- the public KMMS facts already on `/kmms/` (last checked September 2026)
+- the medical school data in `data/schools.json` (41 of 51 schools use an MMI)
+- the owner's own statement: **sessions are in person in Canterbury** (cafés and public places, no fixed address)
+
+**TODO, confirm before these pages go live:**
+
+- **Google rating.** The site shows 4.9 from 12 reviews; the rating section above still says 4.8 from 6. Match the live Google profile.
+- **Online sessions.** The pages say in person in Canterbury only. Add "online" if you teach online.
+- **Other Kent towns.** The pages only claim Canterbury. Add towns if you travel to them.
+- **UCAS personal statement format.** The personal statement page states three questions and 4,000 characters, written from memory. Check the wording on ucas.com.
+- **Elsa's quote on `/last-minute-mmi-prep/`** is trimmed with "…" to leave out Papon's name, as Papon is not on the site.
+- **Group station.** The pages say we practise group station *skills*, not that we run a group mock. Change this if you can run small group mocks.
+- **Outcomes ticker.** The homepage says Oxford; the Outcomes section above says Cambridge. Only one can be right.
+- **Footer.** `/privacy`, `/terms`, `/cookies` and `/safeguarding` pages don't exist yet, and the social links go nowhere.
