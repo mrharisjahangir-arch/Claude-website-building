@@ -151,7 +151,7 @@ img { max-width: 100%; }
 .wa-float:hover { transform: translateY(-2px); background: #2A2731; }
 .wa-float:focus-visible { outline: 2px solid var(--violet); outline-offset: 3px; }
 .wa-float--raised { bottom: calc(88px + env(safe-area-inset-bottom, 0px)); }
-@media (max-width: 559px) { .wa-float { padding: 14px; } .wa-float span { display: none; } }
+@media (max-width: 559px) { .wa-float { padding: 14px; } .wa-float span { display: none; } .wa-float--raised { display: none; } }
 @media (prefers-reduced-motion: reduce) { .wa-float { transition: none; } .wa-float:hover { transform: none; } }
 
 /* Author byline on KMMS pages */

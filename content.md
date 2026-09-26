@@ -76,7 +76,7 @@ person's name.
 Students have received places at:
 
 - **Kent and Medway Medical School (KMMS)**
-- **Cambridge**
+- **Oxford**
 - **Leicester**
 - **University of Birmingham**
 
@@ -166,7 +166,8 @@ The service pages, `/how-it-works/` and the five `/kmms/…/` question pages use
 - the reviews, tutors (Haris, Huzaifa), rating and FAQ answers already on the homepage
 - the public KMMS facts already on `/kmms/` (last checked September 2026)
 - the medical school data in `data/schools.json` (41 of 51 schools use an MMI)
-- the owner's own statement: **sessions are in person in Canterbury** (cafés and public places, no fixed address)
+- the owner's own statement: **sessions are in person in Canterbury** (cafés and public places, no fixed address) **or online**. In person is Canterbury only, no other towns
+- the owner's own statement: **we run paid one-to-one and group MMI mocks, and free MMI mocks once a year**
 - public, official sources for the study advice, linked at the foot of each page and last checked 26 September 2026:
   - UCAT Consortium: 2026 subtest timings (VR 44 questions / 22 min, DM 35 / 37, QR 36 / 26, SJT 69 / 26), scoring 300 to 900 per subtest, SJT Band 1 to 4, 2026 testing 13 July to 24 September
   - UCAS: the three personal statement questions for 2026 entry onwards, 4,000 characters in total, at least 350 per answer
@@ -178,11 +179,11 @@ The service pages, `/how-it-works/` and the five `/kmms/…/` question pages use
 
 **TODO, confirm before these pages go live:**
 
-- **Google rating.** The site shows 4.9 from 12 reviews in the hero and the homepage structured data; the rating section above still says 4.8 from 6. The owner to confirm the exact figures on the live Google profile.
+- **Google rating.** Confirmed by the owner: **4.9 from 12 reviews** matches the live Google profile. The older "4.8 from 6" notes above are out of date.
 - **Privacy policy.** The owner will supply it. Until then the footer's Privacy, Terms, Cookies and Safeguarding links go nowhere.
-- **Online sessions.** The owner confirmed they also tutor online. The pages still say in person in Canterbury only, until the owner approves how to present online tutoring.
-- **Other Kent towns.** The pages only claim Canterbury. Add towns if you travel to them.
+- **Online sessions.** Confirmed: in person in Canterbury, or online. Pages say so in the FAQ, footer and How it works. Titles stay local. The wider online plan (an online sessions page, directories) is parked.
+- **Other Kent towns.** Confirmed: in person in Canterbury only. No town pages.
 - **Elsa's quote on `/last-minute-mmi-prep/`** is trimmed with "…" to leave out Papon's name, as Papon is not on the site.
-- **Group station.** The pages say we practise group station *skills*, not that we run a group mock. Change this if you can run small group mocks.
-- **Outcomes ticker.** The homepage says Oxford; the Outcomes section above says Cambridge. Only one can be right.
+- **Group mocks.** Confirmed: paid one-to-one and group MMI mocks, plus free MMI mocks once a year. The KMMS mock, MMI mocks and group station pages say so.
+- **Outcomes ticker.** Confirmed by the owner: **Oxford** is correct, matching the homepage ticker.
 - **Footer.** `/privacy`, `/terms`, `/cookies` and `/safeguarding` pages don't exist yet, and the social links go nowhere.

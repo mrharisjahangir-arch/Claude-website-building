@@ -1,0 +1,8 @@
+{
+  "redirects": [
+    { "source": "/gcse", "destination": "/gcse-tutoring/", "permanent": true },
+    { "source": "/gcse/", "destination": "/gcse-tutoring/", "permanent": true },
+    { "source": "/about", "destination": "/how-it-works/", "permanent": true },
+    { "source": "/about/", "destination": "/how-it-works/", "permanent": true }
+  ]
+}
