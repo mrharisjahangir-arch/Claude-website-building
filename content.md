@@ -167,13 +167,18 @@ The service pages, `/how-it-works/` and the five `/kmms/…/` question pages use
 - the public KMMS facts already on `/kmms/` (last checked September 2026)
 - the medical school data in `data/schools.json` (41 of 51 schools use an MMI)
 - the owner's own statement: **sessions are in person in Canterbury** (cafés and public places, no fixed address)
+- public, official sources for the study advice, linked at the foot of each page and last checked 26 September 2026:
+  - UCAT Consortium: 2026 subtest timings (VR 44 questions / 22 min, DM 35 / 37, QR 36 / 26, SJT 69 / 26), scoring 300 to 900 per subtest, SJT Band 1 to 4, 2026 testing 13 July to 24 September
+  - UCAS: the three personal statement questions for 2026 entry onwards, 4,000 characters in total, at least 350 per answer
+  - Ofqual: GCSE maths weighting (Biology 10%, Chemistry 20%, Physics 30%); AQA: at least 10% maths in A Level Biology
+  - NHS Health Careers (the six NHS values), GMC Good medical practice
+  - RCGP Observe GP, BSMS virtual work experience, Pilgrims Hospices (16+), East Kent Hospitals (16 to 18), St John Ambulance cadets (10 to 17), NHS Kent and Medway Health and Care Academy
 
 **TODO, confirm before these pages go live:**
 
 - **Google rating.** The site shows 4.9 from 12 reviews; the rating section above still says 4.8 from 6. Match the live Google profile.
-- **Online sessions.** The pages say in person in Canterbury only. Add "online" if you teach online.
+- **Online sessions.** The owner confirmed they also tutor online. The pages still say in person in Canterbury only, until the owner approves how to present online tutoring.
 - **Other Kent towns.** The pages only claim Canterbury. Add towns if you travel to them.
-- **UCAS personal statement format.** The personal statement page states three questions and 4,000 characters, written from memory. Check the wording on ucas.com.
 - **Elsa's quote on `/last-minute-mmi-prep/`** is trimmed with "…" to leave out Papon's name, as Papon is not on the site.
 - **Group station.** The pages say we practise group station *skills*, not that we run a group mock. Change this if you can run small group mocks.
 - **Outcomes ticker.** The homepage says Oxford; the Outcomes section above says Cambridge. Only one can be right.
