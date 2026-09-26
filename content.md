@@ -174,9 +174,12 @@ The service pages, `/how-it-works/` and the five `/kmms/…/` question pages use
   - NHS Health Careers (the six NHS values), GMC Good medical practice
   - RCGP Observe GP, BSMS virtual work experience, Pilgrims Hospices (16+), East Kent Hospitals (16 to 18), St John Ambulance cadets (10 to 17), NHS Kent and Medway Health and Care Academy
 
+- the owner's phone and WhatsApp number, the same as on the Google profile: **07756 477107** (shown in the footer, the WhatsApp button and the homepage structured data)
+
 **TODO, confirm before these pages go live:**
 
-- **Google rating.** The site shows 4.9 from 12 reviews; the rating section above still says 4.8 from 6. Match the live Google profile.
+- **Google rating.** The site shows 4.9 from 12 reviews in the hero and the homepage structured data; the rating section above still says 4.8 from 6. The owner to confirm the exact figures on the live Google profile.
+- **Privacy policy.** The owner will supply it. Until then the footer's Privacy, Terms, Cookies and Safeguarding links go nowhere.
 - **Online sessions.** The owner confirmed they also tutor online. The pages still say in person in Canterbury only, until the owner approves how to present online tutoring.
 - **Other Kent towns.** The pages only claim Canterbury. Add towns if you travel to them.
 - **Elsa's quote on `/last-minute-mmi-prep/`** is trimmed with "…" to leave out Papon's name, as Papon is not on the site.

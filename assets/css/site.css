@@ -141,3 +141,20 @@ img { max-width: 100%; }
   html { scroll-behavior: auto; }
   [data-hero-in] { animation: none !important; }
 }
+
+/* Contact: footer phone and WhatsApp, floating WhatsApp button */
+.foot-contact { margin: 14px 0 0; display: flex; flex-wrap: wrap; gap: 8px 16px; font-size: 14px; font-weight: 700; }
+.foot-contact a { color: var(--ink); text-decoration: none; }
+.foot-contact a:hover { color: var(--violet); }
+.wa-float { position: fixed; right: 16px; bottom: calc(16px + env(safe-area-inset-bottom, 0px)); z-index: 65; display: inline-flex; align-items: center; gap: 10px; padding: 12px 18px 12px 14px; border-radius: 999px; background: var(--ink); color: #FFFFFF; font-size: 15px; font-weight: 700; text-decoration: none; box-shadow: 0 14px 30px -10px rgba(29,27,34,0.45); transition: transform 300ms var(--ease-btn), background-color 300ms ease; }
+.wa-float svg { color: #25D366; flex: none; }
+.wa-float:hover { transform: translateY(-2px); background: #2A2731; }
+.wa-float:focus-visible { outline: 2px solid var(--violet); outline-offset: 3px; }
+.wa-float--raised { bottom: calc(88px + env(safe-area-inset-bottom, 0px)); }
+@media (max-width: 559px) { .wa-float { padding: 14px; } .wa-float span { display: none; } }
+@media (prefers-reduced-motion: reduce) { .wa-float { transition: none; } .wa-float:hover { transform: none; } }
+
+/* Author byline on KMMS pages */
+.byline { margin: 14px 0 0; font-size: 14px; line-height: 20px; color: var(--stone); }
+.byline a { color: var(--violet); font-weight: 700; text-decoration: none; }
+.byline a:hover { text-decoration: underline; }
